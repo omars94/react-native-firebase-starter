@@ -9,7 +9,9 @@ import {
 } from "react-native";
 
 import firebase from "react-native-firebase";
-import Login from "./src/components/login/Login";
+// import Login from "./src/components/login/Login";
+import Homepage from "./src/components/homepage/Homepage";
+
 
 export default class App extends Component {
   constructor() {
@@ -42,9 +44,7 @@ export default class App extends Component {
   }
 
   render() {
-    return( 
-      <Login />
-    );
+    return <Homepage />;
   }
 }
 
@@ -83,5 +83,3 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-
