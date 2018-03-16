@@ -141,6 +141,7 @@ class SignUpForm extends Component {
 						this.setState({ birthDate: birthDate });
 					}}
 				/>
+				
 				<TouchableOpacity 
 					style={styles.buttonContainer}
 					onPress={() => {

@@ -9,8 +9,8 @@ import {
 	Text
 } from "react-native";
 import firebase from "react-native-firebase";
-import LoginForm from "./LoginForm";
-import SignUpForm from "./SignUpForm";
+import LoginForm from "./loginForm";
+import SignUpForm from "./signUpForm";
 
 export default class Login extends Component {
 	constructor(props) {

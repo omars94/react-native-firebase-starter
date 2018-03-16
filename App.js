@@ -9,8 +9,9 @@ import {
 } from "react-native";
 
 import firebase from "react-native-firebase";
-// import Login from "./src/components/login/Login";
-import Homepage from "./src/components/homepage/Homepage";
+// import Login from "./src/components/login/login";
+import Homepage from "./src/components/drawer/starterDrawer";
+// import DrawerExample from './Drawer';
 
 
 export default class App extends Component {
@@ -44,7 +45,9 @@ export default class App extends Component {
   }
 
   render() {
-    return <Homepage />;
+    return (
+      <Homepage />
+    );
   }
 }
 
