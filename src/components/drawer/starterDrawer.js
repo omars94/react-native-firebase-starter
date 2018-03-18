@@ -11,22 +11,17 @@ import {
 import Login from "../login/login";
 import SignUpForm from "../login/signUpForm";
 import Homepage from "../home/homepage";
+import Settings from "../settings/settings";
+import About from "../about/about";
 
-const LoginSignUpStack = StackNavigator({
-	Login: {
-		screen: Login
-	},
-	SignUp: {
-		screen: SignUpForm
-	},
-	navigationOptions: ({ navigation }) => ({
-		headerStyle: { backgroundColor: "green" },
-		title: "Logged In to your app!",
-		headerLeft: (
-			<Text onPress={() => navigation.navigate("DrawerOpen")}>Menu</Text>
-		)
-	})
-});
+// const LoginSignUpStack = StackNavigator({
+// 	Login: {
+// 		screen: Login
+// 	},
+// 	SignUp: {
+// 		screen: SignUpForm
+// 	}
+// });
 
 const sideMenu = DrawerNavigator(
 	{
@@ -38,6 +33,12 @@ const sideMenu = DrawerNavigator(
 		},
 		Homepage: {
 			screen: Homepage
+		},
+		Settings: {
+			screen: Settings
+		},
+		About: {
+			screen: About
 		}
 	},
 	{

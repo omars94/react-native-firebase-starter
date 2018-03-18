@@ -6,8 +6,12 @@ import {
 	Image,
 	TextInput,
 	TouchableOpacity,
-	Text
+	Text,
+	Button
 } from "react-native";
+import { StackNavigator, SafeAreaView } from "react-navigation";
+
+import { Icon } from "react-native-elements";
 import firebase from "react-native-firebase";
 import LoginForm from "./loginForm";
 import SignUpForm from "./signUpForm";
@@ -57,13 +61,12 @@ export default class Login extends Component {
 			signUpPressed: pressed
 		});
 	}
-
 	render() {
 		return (
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
 				<View style={styles.loginContainer}>
 					<Image
-						resizeMode="contain"
+						resizeMode="center"
 						style={styles.logo}
 						source={require("../../images/BAULogoicon.png")}
 					/>
@@ -85,6 +88,18 @@ export default class Login extends Component {
 		);
 	}
 }
+
+const LoginStack = StackNavigator(
+	{
+		Login: { screen: LoginForm },
+		SignUp: { screen: SignUpForm }
+	},
+	{
+		header: ({ goBack }) => ({
+			left: <Text onPress={() => goBack()}>Back</Text>
+		})
+	}
+);
 
 // define your styles
 const styles = StyleSheet.create({

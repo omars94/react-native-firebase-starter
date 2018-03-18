@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import { Platform, Button, Text, ScrollView, StatusBar } from "react-native";
 import { TabNavigator, SafeAreaView } from "react-navigation";
+import firebase from "react-native-firebase";
 
+import Events from "./events"
 class Homepage extends Component {
 	render() {
 		return <View />;
@@ -15,13 +17,20 @@ class Homepage extends Component {
 			userType: ""
 		};
 	}
+	componentDidMount() {
+		firebase.database().ref("events/")
+			.once()
+			.then(function(snapshot) {
+				console.log(snapshot);
+			});
+	}
 }
 
-const Events = ({ navigation }) => (
-	<View>
-		<Text style={{ fontSize: 50 }}>Events</Text>
-	</View>
-);
+// const Events = ({ navigation }) => (
+// 	<View>
+// 		<Text style={{ fontSize: 50 }}>Events</Text>
+// 	</View>
+// );
 const Profile = ({ navigation }) => (
 	<View>
 		<Text style={{ fontSize: 50 }}>Profile</Text>
@@ -30,15 +39,7 @@ const Profile = ({ navigation }) => (
 
 const homepageTabNav = TabNavigator({
 	Events: { screen: Events },
-	Profile: { screen: Profile },
-	headerMode: "float",
-	navigationOptions: ({ navigation }) => ({
-		headerStyle: { backgroundColor: "green" },
-		title: "Logged In to your app!",
-		headerLeft: (
-			<Text onPress={() => navigation.navigate("DrawerOpen")}>Menu</Text>
-		)
-	})
+	Profile: { screen: Profile }
 });
 
 const styles = StyleSheet.create({});

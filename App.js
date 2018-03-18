@@ -13,7 +13,6 @@ import firebase from "react-native-firebase";
 import Homepage from "./src/components/drawer/starterDrawer";
 // import DrawerExample from './Drawer';
 
-
 export default class App extends Component {
   constructor() {
     super();
@@ -25,12 +24,16 @@ export default class App extends Component {
   componentDidMount() {
     // firebase things?
     // GET USER
-    // firebase.database().ref('users/201601234')
-    //   .once()
-    //     .then(function(snapshot){
-    //         console.log(snapshot.val().age)
-    //         }
-    //       )
+    //   firebase.database().ref('users/201601234')
+    //     .once()
+    //       .then(function(snapshot){
+    //           console.log(snapshot.val()[0])
+    //           }
+    //         ).catch((error)=>{
+    //    console.log("Api call error");
+    //    alert(error.message);
+    // });
+
     // id = 201601438
     // name='abed'
     // age = '18'
@@ -45,9 +48,7 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <Homepage />
-    );
+    return <Homepage />;
   }
 }
 
