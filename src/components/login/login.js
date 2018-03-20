@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { StackNavigator, SafeAreaView } from "react-navigation";
 
-import { Icon } from "react-native-elements";
+// import { Icon } from "react-native-elements";
 import firebase from "react-native-firebase";
 import LoginForm from "./loginForm";
 import SignUpForm from "./signUpForm";

@@ -25,14 +25,14 @@ import About from "../about/about";
 
 const sideMenu = DrawerNavigator(
 	{
+		Homepage: {
+			screen: Homepage
+		},
 		Login: {
 			screen: Login
 		},
 		SignUp: {
 			screen: SignUpForm
-		},
-		Homepage: {
-			screen: Homepage
 		},
 		Settings: {
 			screen: Settings
@@ -42,7 +42,7 @@ const sideMenu = DrawerNavigator(
 		}
 	},
 	{
-		initialRouteName: "Login",
+		initialRouteName: "Homepage",
 		contentOptions: {
 			activeTintColor: "#e91e63"
 		}

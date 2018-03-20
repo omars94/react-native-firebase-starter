@@ -2,7 +2,11 @@
 
 import React, { Component } from "react";
 import firebase from "react-native-firebase";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ScrollView } from "react-native";
+
+import EventView from './layout/event';
+import ListingLayout from './ListingLayout';
+
 
 class events extends Component {
 	constructor(props) {
@@ -17,8 +21,8 @@ class events extends Component {
 		firebase
 			.database()
 			.ref("events/")
+			.orderByChild("dateCreated")
 			.once()
-
 			.then(
 				function(snapshot) {
 					this.setState(
@@ -39,13 +43,13 @@ class events extends Component {
 
 	render() {
 		return (
-			<View>
+			<ScrollView>
 				{this.state.events ? (
 					this.renderEvents()
 				) : (
 					<Text>Please Wait</Text>
 				)}
-			</View>
+			</ScrollView>
 		);
 	}
 
@@ -53,11 +57,13 @@ class events extends Component {
 		var eventsArray = Object.keys(this.state.events)
 		var events = this.state.events
 		return eventsArray.map(item => {
-			return (
-				<View>
-					<Text>{events[item].title}</Text>
-				</View>
-			);
+			switch (events[item].eventType) {
+				case 'event':
+				return <EventView key={item} event={events[item]} />
+
+				default:
+				return <Text key={item}>Not Event</Text>
+			}
 		});
 	}
 }
