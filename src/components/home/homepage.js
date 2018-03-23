@@ -1,11 +1,10 @@
+import Events from "./events";
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import { Platform, Button, Text, ScrollView, StatusBar } from "react-native";
-import { TabNavigator, SafeAreaView } from "react-navigation";
+import {Button, Platform, ScrollView, StatusBar, StyleSheet, Text, View} from "react-native";
 import firebase from "react-native-firebase";
 import LinearGradient from "react-native-linear-gradient";
+import { SafeAreaView, TabNavigator } from "react-navigation";
 
-import Events from "./events";
 class Homepage extends Component {
 	render() {
 		return <View />;

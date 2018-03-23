@@ -1,12 +1,9 @@
-"use strict";
+"use strict";;
 
-import React, { Component } from "react";
-import firebase from "react-native-firebase";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
-
-import EventView from './layout/event';
 import ListingLayout from './ListingLayout';
-
+import React, { Component } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import firebase from "react-native-firebase";
 
 class events extends Component {
 	constructor(props) {

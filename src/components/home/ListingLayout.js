@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
@@ -38,11 +37,13 @@ const Job = props => {
 					style={styles.linearGradient}
 					locations={[0, 1]}
 				>
-					<View styles={styles.titleContainer}>
+					<View style={styles.titleContainer}>
 						<Text style={styles.title}>{props.event.title}</Text>
 					</View>
-					<Text style={styles.descText}>{props.event.jobTitle}</Text>
-					<Text style={styles.descText}>{props.event.email}</Text>
+					<View style={{flex:0.2, flexDirection:"row", justifyContent: 'space-between', alignItems: 'center'}}>
+						<Text style={styles.descText}>{props.event.jobTitle}</Text>
+						<Text style={styles.descText}>{props.event.email}</Text>
+					</View>
 				</LinearGradient>
 			</ImageBackground>
 		</View>
@@ -52,7 +53,8 @@ const Job = props => {
 const Post = props => {
 	return (
 		<View style={styles.mainContainer}>
-			{props.event.image != "" && (
+			{console.log(props.event.image)}
+			{props.event.image && (
 				<ImageBackground
 					source={{ uri: props.event.image }}
 					resizeMode="contain"
@@ -77,24 +79,33 @@ const Post = props => {
 				</ImageBackground>
 			)}
 
-			{props.event.image == "" && (
-				<LinearGradient
-					colors={["rgba(41, 128, 185,1)", "rgba(255,255,255,0.5)"]}
-					style={styles.linearGradient}
-				>
+			{ !props.event.image && (
+				<View style={{backgroundColor:"blue"}}>
 					<Text style={styles.title}>{props.event.title}</Text>
 					<Text style={styles.descText}>
 						{props.event.description}
 					</Text>
-				</LinearGradient>
+			</View>
 			)}
 		</View>
-	);
-};
+	)
+}
+
 const Announcement = props => {
 	return (
 		<View style={styles.mainContainer}>
-			<Text style={styles.title}>{props.event.title}</Text>
+			<LinearGradient
+				colors={[
+					"rgba(41, 128, 185,0.7)",
+					"rgba(255,255,255,0)"
+				]}
+				style={styles.linearGradient}
+			>
+				<Text style={styles.title}>{props.event.title}</Text>
+				<Text style={styles.descText}>
+					{props.event.description}
+				</Text>
+			</LinearGradient>
 		</View>
 	);
 };
@@ -102,9 +113,18 @@ const Announcement = props => {
 const Alumni = props => {
 	return (
 		<View style={styles.mainContainer}>
-			<Text style={(styles.title, styles.postTitle)}>
-				{props.event.title}
-			</Text>
+				<LinearGradient
+					colors={[
+						"rgba(41, 128, 185,0.7)",
+						"rgba(255,255,255,0)"
+					]}
+					style={styles.linearGradient}
+				>
+					<Text style={styles.title}>{props.event.title}</Text>
+					<Text style={styles.descText}>
+						{props.event.description}
+					</Text>
+				</LinearGradient>
 		</View>
 	);
 };
@@ -147,18 +167,23 @@ class ListingLayout extends Component {
 const styles = StyleSheet.create({
 	mainContainer: {
 		paddingHorizontal: 10,
-		paddingBottom: 5
+		paddingBottom: 5,
+		flex:1
 	},
 	descText: {
 		fontSize: 15,
 		color: "#fff",
-		marginLeft: 10
+		backgroundColor:'rgba(185,99,41,0.8)',
+		marginLeft: 10,
+		textAlign:"center"
+
 	},
 	title: {
 		color: "#fff",
 		fontWeight: "bold",
 		fontSize: 25,
-		marginLeft: 13
+		marginLeft: 13,
+		textAlign:"center"
 	},
 	postContainer: {
 		backgroundColor: "#575fcf"
