@@ -57,13 +57,13 @@ class events extends Component {
 		var eventsArray = Object.keys(this.state.events)
 		var events = this.state.events
 		return eventsArray.map(item => {
-			switch (events[item].eventType) {
-				case 'event':
-				return <EventView key={item} event={events[item]} />
-
-				default:
-				return <Text key={item}>Not Event</Text>
-			}
+			// switch (events[item].eventType) {
+			// 	case 'event':
+				return <ListingLayout key={item} event={events[item]} />
+                //
+                // default:
+                // return <Text key={item}>Not Event</Text>
+			// }
 		});
 	}
 }

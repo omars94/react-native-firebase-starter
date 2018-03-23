@@ -7,7 +7,7 @@ import { StyleSheet, View, Text, ImageBackground } from "react-native";
 class event extends Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			dateCreated: this.props.event.dateCreated,
 			title: this.props.event.title,
@@ -23,17 +23,18 @@ class event extends Component {
 
 	render() {
 		return (
-			<View>
-			<ImageBackground
-				style={{ width: "100%", height: 200, opacity: 1}}
-				source={{ uri: this.props.event.image }}
+			<View //style={styles.mainContainer}
 			>
-				<Text>Event Title: {this.props.event.title}</Text>
-				<Text>Event Date:{this.props.event.date}</Text>
-				<Text>Event Location:{this.props.event.location}</Text>
-				<Text>Interested? </Text>
-			</ImageBackground>
-		</View>
+				<ImageBackground
+					style={{ width: "100%", height: "70%", opacity: 1 }}
+					source={{ uri: props.event.image }}
+				>
+					<Text>Event Title: {props.event.title}</Text>
+					<Text>Event Date: {props.event.date}</Text>
+					<Text>Event Location: {props.event.location}</Text>
+					<Text>Interested? </Text>
+				</ImageBackground>
+			</View>
 		);
 	}
 }

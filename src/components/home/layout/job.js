@@ -26,7 +26,24 @@ class job extends Component {
 		};
 	}
 	render() {
-		return <View />;
+		return (
+			<View //style={styles.mainContainer}
+			>
+				<ImageBackground
+					style={{ width: "100%", height: "70%", opacity: 0.7 }}
+					source={{ uri: this.props.event.image }}
+				>
+					<Text>Title: {this.props.event.title}</Text>
+					<Text>Job Title: {this.props.event.jobTitle}</Text>
+					<Text>
+						Deadline for Application:{this.props.event.deadline}
+					</Text>
+					<Text>Work Location:{this.props.event.location}</Text>
+					<Text>Company: {this.props.event.company}</Text>
+					<Text>Email: {this.props.event.email}</Text>
+				</ImageBackground>
+			</View>
+		);
 	}
 }
 
