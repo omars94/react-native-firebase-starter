@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
 
-import { StyleSheet, View, Text } from "react-native";
 
 class settings extends Component {
 	render() {
 		return (
-			<View>
+			<View style={{flex:1}}>
 				<Text
 					style={{ fontSize: 50, color: "red", textAlign: "center" }}
 				>

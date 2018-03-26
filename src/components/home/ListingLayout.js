@@ -140,6 +140,7 @@ class ListingLayout extends Component {
 	render() {
 		return (
 			<View>
+
 				{this.props.event.eventType == "event" && (
 					<Event event={this.props.event} />
 				)}
@@ -163,6 +164,7 @@ class ListingLayout extends Component {
 		);
 	}
 }
+
 
 const styles = StyleSheet.create({
 	mainContainer: {

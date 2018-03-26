@@ -2,8 +2,9 @@
 
 import ListingLayout from './ListingLayout';
 import React, { Component } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import firebase from "react-native-firebase";
+import { FloatingAction } from 'react-native-floating-action';
 
 class events extends Component {
 	constructor(props) {
@@ -40,13 +41,29 @@ class events extends Component {
 
 	render() {
 		return (
-			<ScrollView>
-				{this.state.events ? (
-					this.renderEvents()
-				) : (
-					<Text>Please Wait</Text>
-				)}
-			</ScrollView>
+			<View >
+				<ScrollView>
+
+					{this.state.events ? (
+						this.renderEvents()
+					) : (
+						<Text>Please Wait</Text>
+					)}
+				</ScrollView>
+
+				<FloatingAction
+					ref={(ref) => { this.floatingAction = ref; }}
+					actions={actions}
+					style={{}}
+					onPressItem={
+						(name) => {
+							this.floatingAction.animateButton();
+							if(name == 'event'){
+								navigate('createEvent')}
+							}
+					}
+				/>
+			</View>
 		);
 	}
 
@@ -54,16 +71,38 @@ class events extends Component {
 		var eventsArray = Object.keys(this.state.events)
 		var events = this.state.events
 		return eventsArray.map(item => {
-			// switch (events[item].eventType) {
-			// 	case 'event':
 				return <ListingLayout key={item} event={events[item]} />
-                //
-                // default:
-                // return <Text key={item}>Not Event</Text>
-			// }
 		});
 	}
 }
+
+
+const actions = [{
+	 text: 'Event',
+	 icon: <Image source={require('../../images/icons/event.png')} style={{width:35,height:35}} />,
+	 name: 'event',
+	 position: 1
+ }, {
+	 text: 'Job',
+	 icon: <Image source={require('../../images/icons/job.png')} style={{width:35,height:35}} />,
+	 name: 'job',
+	 position: 2
+ }, {
+	 text: 'Post',
+	 icon: <Image source={require('../../images/icons/post.png')} style={{width:35,height:35}} />,
+	 name: 'post',
+	 position: 3
+ }, {
+	 text: 'Alumni',
+	 icon: <Image source={require('../../images/icons/alumni.png')} style={{width:35,height:35}} />,
+	 name: 'alumni',
+	 position: 4
+ },{
+	 text: 'Announcement',
+	 icon: <Image source={require('../../images/icons/announcement.png')} style={{width:35,height:35}} />,
+	 name: 'announcement',
+	 position: 5
+ }];
 
 const styles = StyleSheet.create({});
 

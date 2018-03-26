@@ -1,9 +1,10 @@
-import Events from "./events";
 import React, { Component } from "react";
 import {Button, Platform, ScrollView, StatusBar, StyleSheet, Text, View} from "react-native";
 import firebase from "react-native-firebase";
 import LinearGradient from "react-native-linear-gradient";
 import { SafeAreaView, TabNavigator } from "react-navigation";
+import Events from "./events";
+
 
 class Homepage extends Component {
 	render() {
@@ -28,11 +29,6 @@ class Homepage extends Component {
 	}
 }
 
-// const Events = ({ navigation }) => (
-// 	<View>
-// 		<Text style={{ fontSize: 50 }}>Events</Text>
-// 	</View>
-// );
 const Profile = ({ navigation }) => (
 	<View>
 		<LinearGradient
@@ -49,6 +45,7 @@ const homepageTabNav = TabNavigator({
 	Events: { screen: Events },
 	Profile: { screen: Profile }
 });
+
 
 const styles = StyleSheet.create({
 	linearGradient: {
