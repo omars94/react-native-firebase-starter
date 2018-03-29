@@ -1,10 +1,8 @@
-"use strict";;
-
 import ListingLayout from './ListingLayout';
 import React, { Component } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import firebase from "react-native-firebase";
-import { FloatingAction } from 'react-native-floating-action';
+import { FloatingAction } from "react-native-floating-action";
 
 class events extends Component {
 	constructor(props) {
@@ -59,7 +57,8 @@ class events extends Component {
 						(name) => {
 							this.floatingAction.animateButton();
 							if(name == 'event'){
-								navigate('createEvent')}
+								this.props.navigation.navigate('makePage')
+							}
 							}
 					}
 				/>

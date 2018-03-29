@@ -1,10 +1,19 @@
+import makePage from '../createNavigator/createEvent';
+import Events from './events';
 import React, { Component } from "react";
-import {Button, Platform, ScrollView, StatusBar, StyleSheet, Text, View} from "react-native";
+import {
+    Button,
+    Platform,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import firebase from "react-native-firebase";
-import LinearGradient from "react-native-linear-gradient";
-import { SafeAreaView, TabNavigator } from "react-navigation";
-import Events from "./events";
-
+import IOSIcon from "react-native-vector-icons/Ionicons";
+import { StackNavigator} from 'react-navigation'
 
 class Homepage extends Component {
 	render() {
@@ -29,23 +38,32 @@ class Homepage extends Component {
 	}
 }
 
-const Profile = ({ navigation }) => (
-	<View>
-		<LinearGradient
-			colors={["#000", "#fff"]}
-			style={styles.linearGradient}
-		>
-			<Text style={{ fontSize: 50 }}>Profile</Text>
-			<Text>Sign in with Facebook</Text>
-		</LinearGradient>
-	</View>
-);
+const EventStackNav = StackNavigator(
+  {
+    Events: {
+        screen: Events,
+        navigationOptions:({navigation}) => ({
+            title: "BAU Events",
+            headerLeft:(
+              <TouchableOpacity onPress={() => navigation.navigate("DrawerOpen")}>
+                <IOSIcon name="ios-menu" size={30} />
+              </TouchableOpacity>
+            ),
+            headerStyle: { paddingRight: 10, paddingLeft: 10 }
+        })
+    },
+    makePage: {
+      screen: makePage,
+        navigationOptions: (props) => ({
 
-const homepageTabNav = TabNavigator({
-	Events: { screen: Events },
-	Profile: { screen: Profile }
-});
-
+        })
+    }
+},{
+  initialRouteName: "Events",
+  contentOptions: {
+    activeTintColor: "#e91e63"
+  }
+})
 
 const styles = StyleSheet.create({
 	linearGradient: {
@@ -55,4 +73,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default homepageTabNav;
+export default EventStackNav;

@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-
 import {
-	StyleSheet,
-	View,
+	Picker,
 	ScrollView,
+	StyleSheet,
 	Text,
 	TextInput,
-	Picker,
-	TouchableOpacity
+	TouchableOpacity,
+	View
 } from "react-native";
-
 import DatePicker from "react-native-datepicker";
 
 class SignUpForm extends Component {
@@ -51,6 +49,7 @@ class SignUpForm extends Component {
 					<Picker.Item label="Student" value="student" />
 					<Picker.Item label="Master Mind" value="mastermind" />
 				</Picker>
+				<View style={styles.textAndTextInputContainer}>
 				<Text>Full Name: </Text>
 				<TextInput
 					placeholder="Omar Samman"
@@ -60,6 +59,8 @@ class SignUpForm extends Component {
 						});
 					}}
 				/>
+			</View>
+			<View style={styles.textAndTextInputContainer}>
 				<Text> Univerity ID: </Text>
 				<TextInput
 					placeholder="201801234"
@@ -68,6 +69,8 @@ class SignUpForm extends Component {
 						this.setState({ universityID: universityID });
 					}}
 				/>
+			</View>
+			<View style={styles.textAndTextInputContainer}>
 				<Text>Phone #: </Text>
 				<TextInput
 					placeholder="70123456"
@@ -76,6 +79,8 @@ class SignUpForm extends Component {
 						this.setState({ phoneN: phoneN });
 					}}
 				/>
+			</View>
+			<View style={styles.textAndTextInputContainer}>
 				<Text>Email Address:</Text>
 				<TextInput
 					placeholder="john@smith.com"
@@ -84,15 +89,24 @@ class SignUpForm extends Component {
 						this.setState({ emailAddress: emailAddress });
 					}}
 				/>
+			</View>
+			<View style={styles.textAndTextInputContainer}>
+				<View style={styles.textContainer} >
 				<Text>Password:</Text>
+			</View>
+			<View style = {styles.textInputContainer}>
 				<TextInput
 					placeholder="********"
+					secureTextEntry
 					onChangeText={pwd => {
 						this.setState({ pwd: pwd });
 					}}
 				/>
+			</View>
+			</View>
 				<TextInput
 					placeholder="Confirm Password"
+					secureTextEntry
 					onChangeText={retypepwd => {
 						this.setState({ retypepwd: retypepwd });
 					}}
@@ -107,6 +121,8 @@ class SignUpForm extends Component {
 					<Picker.Item label="Female" value="f" />
 					<Picker.Item label="Others" value="o" />
 				</Picker>
+				<View style={styles.textAndTextInputContainer}>
+
 				<Text> Major: </Text>
 				<TextInput
 					placeholder="Computer Science"
@@ -114,6 +130,7 @@ class SignUpForm extends Component {
 						this.setState({ major: major });
 					}}
 				/>
+</View>
 
 				<DatePicker
 					style={{ width: 200 }}
@@ -141,8 +158,8 @@ class SignUpForm extends Component {
 						this.setState({ birthDate: birthDate });
 					}}
 				/>
-				
-				<TouchableOpacity 
+
+				<TouchableOpacity
 					style={styles.buttonContainer}
 					onPress={() => {
 						// this.trySignUp();
@@ -156,9 +173,22 @@ class SignUpForm extends Component {
 }
 
 const styles = StyleSheet.create({
-	buttonContainer:{
+	buttonContainer: {
 		backgroundColor:'#CF000F',
 		width:'50%'
+	},
+	textAndTextInputContainer: {
+		flex:1,
+		alignItems:'center',
+		flexDirection:'row',
+		paddingHorizontal: 10,
+		paddingVertical: 2.5
+	},
+	textContainer: {
+		width:'25%'
+	},
+	textInputContainer: {
+		width: '75%'
 	}
 });
 

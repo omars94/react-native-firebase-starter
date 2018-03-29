@@ -1,17 +1,15 @@
+// import Login from "./src/components/login/login";
+import Homepage from "./src/components/drawer/starterDrawer";
 import React, { Component } from "react";
 import {
   AppRegistry,
-  StyleSheet,
-  Platform,
   Image,
+  Platform,
+  StyleSheet,
   Text,
   View
 } from "react-native";
 
-import firebase from "react-native-firebase";
-// import Login from "./src/components/login/login";
-import Homepage from "./src/components/drawer/starterDrawer";
-import DrawerNav from "./src/components/tryNav/drawerNav";
 // import DrawerExample from './Drawer';
 
 export default class App extends Component {
