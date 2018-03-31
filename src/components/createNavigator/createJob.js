@@ -5,29 +5,26 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
-import firebase from 'react-native-firebase';
 import PhotoUpload from 'react-native-photo-upload';
 
-export default class createEvent extends React.Component {
+export default class createJob extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       title: "",
+      jobTitle: "",
+      location: "",
       date: "",
       description: "",
-      photo: "",
-      location: ""
+      photo: ""
 
     }
   }
-  createEvent() {
-    firebase.database().ref('events/' + (
-    id)).set({name: name, age: age, profile_picture: './helloworld/j.png'});
-  }
+
   componentDidUpdate() {
     console.log('details: ', this.state.title + " " + this.state.date + " " + this.state.description);
   }
@@ -36,23 +33,31 @@ export default class createEvent extends React.Component {
     return (<View style={styles.container}>
       <View style={styles.textAndTextInputContainer}>
         <View style={styles.textContainer}>
-          <Text>Event title</Text>
+          <Text>Title</Text>
         </View>
         <View style={styles.textInputContainer}>
-          <TextInput underlineColorAndroid={'transparent'} placeholder="event name" onChangeText={(title) => this.setState({title: title})}/>
+          <TextInput underlineColorAndroid={'transparent'} placeholder="Title" onChangeText={(title) => this.setState({title: title})}/>
         </View>
       </View>
       <View style={styles.textAndTextInputContainer}>
         <View style={styles.textContainer}>
-          <Text>Event Date:</Text>
+          <Text>Job Title</Text>
         </View>
         <View style={styles.textInputContainer}>
-          <TextInput underlineColorAndroid={'transparent'} placeholder="07-01-2018" onChangeText={(date) => this.setState({date: date})} keyboardType="numeric"/>
+          <TextInput underlineColorAndroid={'transparent'} placeholder="Job Title" onChangeText={(jobTitle) => this.setState({jobTitle: jobTitle})}/>
         </View>
       </View>
       <View style={styles.textAndTextInputContainer}>
         <View style={styles.textContainer}>
-          <Text>Event Description:</Text>
+          <Text>Work Location:</Text>
+        </View>
+        <View style={styles.textInputContainer}>
+          <TextInput underlineColorAndroid={'transparent'} placeholder="work location" onChangeText={(location) => this.setState({location: location})} keyboardType="numeric"/>
+        </View>
+      </View>
+      <View style={styles.textAndTextInputContainer}>
+        <View style={styles.textContainer}>
+          <Text>Job Description:</Text>
         </View>
         <View style={styles.textInputContainer}>
           <TextInput underlineColorAndroid={'transparent'} placeholder="enter description here" multiline={true} numberOfLines={4} onChangeText={(text) => this.setState({description: text})} value={this.state.text}/>
@@ -60,10 +65,10 @@ export default class createEvent extends React.Component {
       </View>
       <View style={styles.textAndTextInputContainer}>
         <View style={styles.textContainer}>
-          <Text>Event Location:</Text>
+          <Text>Deadline</Text>
         </View>
         <View style={styles.textInputContainer}>
-          <TextInput underlineColorAndroid={'transparent'} placeholder="event location" onChangeText={(location) => this.setState({location: location})} keyboardType="numeric"/>
+          <TextInput underlineColorAndroid={'transparent'} placeholder="deadline" onChangeText={(deadline) => this.setState({deadline: deadline})}/>
         </View>
       </View>
       <PhotoUpload onPhotoSelect={avatar => {

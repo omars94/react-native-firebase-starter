@@ -1,4 +1,8 @@
-import makePage from '../createNavigator/createEvent';
+import createEvent from '../createNavigator/createEvent';
+import createPost from '../createNavigator/createPost';
+import createAlumni from '../createNavigator/createAlumni';
+import createAnnouncement from '../createNavigator/createAnnouncement';
+import createJob from '../createNavigator/createJob';
 import Events from './events';
 import React, { Component } from "react";
 import {
@@ -52,9 +56,38 @@ const EventStackNav = StackNavigator(
             headerStyle: { paddingRight: 10, paddingLeft: 10 }
         })
     },
-    makePage: {
-      screen: makePage,
+    createEvent: {
+      screen: createEvent,
         navigationOptions: (props) => ({
+          title: "Create Event",
+
+        })
+    },
+    createAnnouncement: {
+      screen: createAnnouncement,
+        navigationOptions: (props) => ({
+          title: "Create Announcement",
+
+        })
+    },
+    createJob: {
+      screen: createJob,
+        navigationOptions: (props) => ({
+          title: "Create Job",
+
+        })
+    },
+    createAlumni: {
+      screen: createAlumni,
+        navigationOptions: (props) => ({
+          title: "Create Alumni",
+
+        })
+    },
+    createPost: {
+      screen: createPost,
+        navigationOptions: (props) => ({
+          title: "Create Post",
 
         })
     }
