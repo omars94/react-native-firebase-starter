@@ -43,7 +43,7 @@ export default class LoginForm extends Component {
           onChangeText={id => {
             this.setState({ id: id });
           }}
-          placeholder="ex: hello@g.com"
+          placeholder="example@gmail.com"
           placeholderTextColor="rgba(225,225,225,0.7)"
         />
 
