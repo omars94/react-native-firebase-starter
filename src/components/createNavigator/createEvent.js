@@ -42,13 +42,13 @@ export default class createEvent extends React.Component {
 				mastermind: "not available yet"
 			};
 
-			// firebase
-			// 	.database()
-			// 	.ref("events/" + "event99")
-			// 	.set(model)
-			// 	.then(() => {
-			// 		console.log("done");
-			// 	});
+			firebase
+				.database()
+				.ref("events/" + "event99")
+				.set(model)
+				.then(() => {
+					console.log("done");
+				});
 
 			// console.log(model);
 		} else alert("you must fill all the boxes");

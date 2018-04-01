@@ -9,12 +9,20 @@ import {
 	TouchableOpacity,
 	View
 } from "react-native";
+import firebase from "react-native-firebase";
 import DatePicker from "react-native-datepicker";
 import PhotoUpload from "react-native-photo-upload";
 
 class SignUpForm extends Component {
 	constructor(props) {
 		super(props);
+		var today = new Date(),
+			date =
+				today.getFullYear() +
+				"-" +
+				(today.getMonth() + 1) +
+				"-" +
+				today.getDate();
 
 		this.state = {
 			date: date,
@@ -31,6 +39,38 @@ class SignUpForm extends Component {
 			lastName: "",
 			fullName: ""
 		};
+		signUp = this.signUp.bind(this);
+	}
+	signUp() {
+		firebase
+			.auth()
+			.createUserWithEmailAndPassword(this.state.emailAddress, this.state.pwd)
+			.catch(function(error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				// ...
+			})
+			.then(() => {
+				var model = {
+					dateCreated: Date.now(),
+					userType: this.state.userType,
+					universityID: this.state.universityID,
+					phoneN: this.state.phoneN,
+					emailAddress: this.state.emailAddress,
+					major: this.state.major,
+					birthDate: this.state.birthDate,
+					gender: this.state.gender,
+					firstName: this.state.firstName,
+					lastName: this.state.lastName
+				};
+
+				firebase
+					.database()
+					.ref("users/" + this.state.universityID)
+					.set(model);
+				console.log(model);
+			});
 	}
 	render() {
 		return (
@@ -213,12 +253,7 @@ class SignUpForm extends Component {
 					}}
 				/>
 
-				<TouchableOpacity
-					style={styles.buttonContainer}
-					onPress={() => {
-						// this.trySignUp();
-					}}
-				>
+				<TouchableOpacity style={styles.buttonContainer} onPress={signUp}>
 					<Text
 						style={{
 							color: "#f0932b",
