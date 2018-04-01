@@ -1,0 +1,59 @@
+{
+  //Event Example
+
+  "event10" : {
+    "dateCreated" : "15-3-2018",
+    "description" : "a singer is coming to bau be many",
+    "eventDate" : "16/5/2018",
+    "eventType" : "event",
+    "location" : "bau tripoli campus",
+    "mastermind" : "201601234",
+    "targetAudience" : "BAU students",
+    "title" : "Concert"
+  },
+  // Job Vacancy Example
+  
+  "event6" : {
+    "company" : "code and dot",
+    "dateCreated" : "14/3/2018",
+    "deadline" : "13/4/2018",
+    "email" : "hr@codedot.com",
+    "eventType" : "jobVacancy",
+    "jobTitle" : "Software Developer",
+    "location" : "tripoli",
+    "mastermind" : 201502143,
+    "salary" : "600$ to 1000$",
+    "title" : "software developer required to make mobile applications",
+    "jobReqs":"java,android studio,html,css,javascript",
+    "workPeriod" : "Full-time"
+  },
+  //Announcement Example
+
+  "event7" : {
+    "dateCreated" : "22/3/2018",
+    "description" : "be aware that next week midterms 2 will begin",
+    "eventType" : "announcement",
+    "mastermind" : 201601254,
+    "title" : "midterms 2"
+  },
+  //Post Example
+
+  "event8" : {
+    "dateCreated" : "17/3/2018",
+    "description" : " stephen hawking is dead",
+    "eventType" : "post",
+    "image" : "https://telescoper.files.wordpress.com/2018/03/hawking.jpg?w=450",
+    "mastermind" : 201601234,
+    "title" : "r.i.p hawking"
+  },
+  //Alumni Example
+
+  "event9" : {
+    "dateCreated" : "18/12/2018",
+    "description" : "congratulations omar you have graduated and mutated to an alumni",
+    "eventType" : "alumni",
+    "mastermind" : 201601254,
+    "studentID" : 201601234,
+    "title" : "omar is an Alumni now"
+  }
+}

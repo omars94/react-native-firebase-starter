@@ -1,27 +1,20 @@
 import React, { Component } from "react";
-
 import {
-	StyleSheet,
-	View,
+	Picker,
 	ScrollView,
+	StyleSheet,
+	Image,
 	Text,
 	TextInput,
-	Picker,
-	TouchableOpacity
+	TouchableOpacity,
+	View
 } from "react-native";
-
 import DatePicker from "react-native-datepicker";
+import PhotoUpload from "react-native-photo-upload";
 
 class SignUpForm extends Component {
 	constructor(props) {
 		super(props);
-		var today = new Date(),
-			date =
-				today.getFullYear() +
-				"-" +
-				(today.getMonth() + 1) +
-				"-" +
-				today.getDate();
 
 		this.state = {
 			date: date,
@@ -41,7 +34,7 @@ class SignUpForm extends Component {
 	}
 	render() {
 		return (
-			<ScrollView>
+			<ScrollView style={styles.container}>
 				<Picker
 					selectedValue={this.state.userType}
 					onValueChange={(itemValue, itemIndex) =>
@@ -51,52 +44,121 @@ class SignUpForm extends Component {
 					<Picker.Item label="Student" value="student" />
 					<Picker.Item label="Master Mind" value="mastermind" />
 				</Picker>
-				<Text>Full Name: </Text>
-				<TextInput
-					placeholder="Omar Samman"
-					onChangeText={fullname => {
-						this.setState({
-							fullName: fullname
-						});
+				<PhotoUpload
+					onPhotoSelect={avatar => {
+						if (avatar) {
+							console.log("Image base64 string: ", avatar);
+						}
 					}}
-				/>
-				<Text> Univerity ID: </Text>
-				<TextInput
-					placeholder="201801234"
-					keyboardType="numeric"
-					onChangeText={universityID => {
-						this.setState({ universityID: universityID });
+				>
+					<Image
+						style={{
+							paddingVertical: 30,
+							marginVertical: 10,
+							width: 150,
+							height: 150,
+							borderRadius: 75
+						}}
+						resizeMode="center"
+						source={{
+							uri:
+								"https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg"
+						}}
+					/>
+				</PhotoUpload>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Full Name:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<TextInput
+							underlineColorAndroid={"transparent"}
+							placeholder="Omar Samman"
+							onChangeText={fullname => {
+								this.setState({ fullName: fullname });
+							}}
+						/>
+					</View>
+				</View>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Univerity ID:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<TextInput
+							underlineColorAndroid={"transparent"}
+							placeholder="201801234"
+							keyboardType="numeric"
+							onChangeText={universityID => {
+								this.setState({ universityID: universityID });
+							}}
+						/>
+					</View>
+				</View>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Phone #:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<TextInput
+							underlineColorAndroid={"transparent"}
+							placeholder="70123456"
+							keyboardType="numeric"
+							onChangeText={phoneN => {
+								this.setState({ phoneN: phoneN });
+							}}
+						/>
+					</View>
+				</View>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Email Address:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<TextInput
+							underlineColorAndroid={"transparent"}
+							placeholder="john@smith.com"
+							keyboardType="email-address"
+							onChangeText={emailAddress => {
+								this.setState({ emailAddress: emailAddress });
+							}}
+						/>
+					</View>
+				</View>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Password:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<TextInput
+							underlineColorAndroid={"transparent"}
+							placeholder="********"
+							secureTextEntry
+							onChangeText={pwd => {
+								this.setState({ pwd: pwd });
+							}}
+						/>
+					</View>
+				</View>
+				<View
+					style={{
+						width: "70%",
+						borderColor: "#48BBEC",
+						backgroundColor: "rgba(0,0,0,0.1)",
+						borderWidth: 1,
+						borderRadius: 10,
+						marginLeft: 90
 					}}
-				/>
-				<Text>Phone #: </Text>
-				<TextInput
-					placeholder="70123456"
-					keyboardType="numeric"
-					onChangeText={phoneN => {
-						this.setState({ phoneN: phoneN });
-					}}
-				/>
-				<Text>Email Address:</Text>
-				<TextInput
-					placeholder="john@smith.com"
-					keyboardType="email-address"
-					onChangeText={emailAddress => {
-						this.setState({ emailAddress: emailAddress });
-					}}
-				/>
-				<Text>Password:</Text>
-				<TextInput
-					placeholder="********"
-					onChangeText={pwd => {
-						this.setState({ pwd: pwd });
-					}}
-				/>
-				<TextInput
-					placeholder="Confirm Password"
-					onChangeText={retypepwd => {
-						this.setState({ retypepwd: retypepwd });
-					}}
-				/>
+				>
+					<TextInput
+						underlineColorAndroid={"transparent"}
+						placeholder="Confirm Password"
+						secureTextEntry
+						onChangeText={retypepwd => {
+							this.setState({ retypepwd: retypepwd });
+						}}
+					/>
+				</View>
 				<Picker
 					selectedValue={this.state.gender}
 					onValueChange={(itemValue, itemIndex) =>
@@ -107,16 +169,25 @@ class SignUpForm extends Component {
 					<Picker.Item label="Female" value="f" />
 					<Picker.Item label="Others" value="o" />
 				</Picker>
-				<Text> Major: </Text>
-				<TextInput
-					placeholder="Computer Science"
-					onChangeText={major => {
-						this.setState({ major: major });
-					}}
-				/>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Major:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<TextInput
+							underlineColorAndroid={"transparent"}
+							placeholder="Computer Science"
+							onChangeText={major => {
+								this.setState({ major: major });
+							}}
+						/>
+					</View>
+				</View>
 
 				<DatePicker
-					style={{ width: 200 }}
+					style={{
+						width: 200
+					}}
 					date={this.state.date}
 					mode="date"
 					placeholder="select date"
@@ -141,14 +212,21 @@ class SignUpForm extends Component {
 						this.setState({ birthDate: birthDate });
 					}}
 				/>
-				
-				<TouchableOpacity 
+
+				<TouchableOpacity
 					style={styles.buttonContainer}
 					onPress={() => {
 						// this.trySignUp();
 					}}
 				>
-					<Text style={{color:'white', textAlign:'center'}}>Sign Up</Text>
+					<Text
+						style={{
+							color: "#f0932b",
+							textAlign: "center"
+						}}
+					>
+						Sign Up
+					</Text>
 				</TouchableOpacity>
 			</ScrollView>
 		);
@@ -156,9 +234,31 @@ class SignUpForm extends Component {
 }
 
 const styles = StyleSheet.create({
-	buttonContainer:{
-		backgroundColor:'#CF000F',
-		width:'50%'
+	container: {
+		paddingHorizontal: 20
+	},
+	buttonContainer: {
+		backgroundColor: "#CF000F",
+		width: "50%",
+		alignItems: "center"
+	},
+	textAndTextInputContainer: {
+		flex: 1,
+		alignItems: "center",
+		flexDirection: "row",
+		paddingHorizontal: 10,
+		paddingVertical: 2.5
+	},
+	textContainer: {
+		width: "25%"
+	},
+	textInputContainer: {
+		width: "75%",
+		borderColor: "#48BBEC",
+		backgroundColor: "rgba(0,0,0,0.1)",
+		borderWidth: 1,
+		paddingBottom: 5,
+		borderRadius: 10
 	}
 });
 

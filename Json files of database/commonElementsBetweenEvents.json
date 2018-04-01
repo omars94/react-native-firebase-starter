@@ -1,0 +1,7 @@
+{
+  "dateCreated" : "enter date here for creation of event should be automated",
+  "description" : "enter description of event here",
+  "eventType" : "type of the event (job,grad,event,announcement,post)",
+  "mastermind" : "enter the id of the master mind that created this event",
+  "title" : "title of the event"
+}
