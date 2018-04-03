@@ -37,40 +37,95 @@ class SignUpForm extends Component {
 			retypepwd: "",
 			firstName: "",
 			lastName: "",
-			fullName: ""
+			fullName: "",
+			auth: "false",
+			user: "0"
 		};
 		signUp = this.signUp.bind(this);
 	}
 	signUp() {
-		firebase
-			.auth()
-			.createUserWithEmailAndPassword(this.state.emailAddress, this.state.pwd)
-			.catch(function(error) {
-				// Handle Errors here.
-				var errorCode = error.code;
-				var errorMessage = error.message;
-				// ...
-			})
-			.then(() => {
-				var model = {
-					dateCreated: Date.now(),
-					userType: this.state.userType,
-					universityID: this.state.universityID,
-					phoneN: this.state.phoneN,
-					emailAddress: this.state.emailAddress,
-					major: this.state.major,
-					birthDate: this.state.birthDate,
-					gender: this.state.gender,
-					firstName: this.state.firstName,
-					lastName: this.state.lastName
-				};
+		var reg1 = /.*(@student.bau.edu.lb)$/i;
+		var reg2 = /.*(@bau.edu.lb)$/i;
 
-				firebase
-					.database()
-					.ref("users/" + this.state.universityID)
-					.set(model);
-				console.log(model);
-			});
+		if (this.state.emailAddress.match(reg1) || this.state.emailAddress == reg2){
+
+			firebase
+				.auth()
+				.createUserAndRetrieveDataWithEmailAndPassword(
+					this.state.emailAddress,
+					this.state.pwd
+				)
+				.catch(function(error) {
+					// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					// ...
+				})
+				.then(() => {
+					var user = firebase.auth().currentUser;
+					console.log(user);
+					user
+						.sendEmailVerification()
+						.then(function() {
+							alert("Check your email to verify your account");
+							// Email sent.
+						})
+						.catch(function(error) {
+							console.log(error);
+							// An error happened.
+						});
+					firebase
+						.auth()
+						.signInAndRetrieveDataWithEmailAndPassword(
+							this.state.emailAddress,
+							this.state.pwd
+						)
+						.then(data => {
+							this.setState(
+								{
+									auth: true,
+									user: data.user
+								},
+								() => {
+									console.log(this.state);
+									console.log(user);
+								}
+							);
+						})
+						.catch(function(error) {
+							// Handle Errors here.
+							var errorCode = error.code;
+							var errorMessage = error.message;
+							console.log(errorMessage);
+						});
+					firstName = this.state.fullName.split(" ")[0];
+					lastName = this.state.fullName.split(" ")[1];
+					var model = {
+						dateCreated:
+							Date().toLocaleString() + " " + new Date().getMilliseconds(),
+						userType: this.state.userType,
+						universityID: this.state.universityID,
+						phoneN: this.state.phoneN,
+						emailAddress: this.state.emailAddress,
+						major: this.state.major,
+						birthDate: this.state.birthDate,
+						gender: this.state.gender,
+						firstName: firstName,
+						lastName: lastName
+					};
+
+					firebase
+						.database()
+						.ref("users/" + this.state.universityID)
+						.set(model);
+
+					console.log(model);
+					alert("Sign up is complete");
+					this.props.navigation.navigate("Events");
+				});
+			}else{
+				alert('email not recognized');
+			}
 	}
 	render() {
 		return (
