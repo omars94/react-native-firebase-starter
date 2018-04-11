@@ -3,6 +3,7 @@ import createPost from "../createNavigator/createPost";
 import createAlumni from "../createNavigator/createAlumni";
 import createAnnouncement from "../createNavigator/createAnnouncement";
 import createJob from "../createNavigator/createJob";
+import SignUp from "../login/signUpForm";
 import Events from "./events";
 import React, { Component } from "react";
 import {
@@ -26,7 +27,15 @@ class Homepage extends Component {
 
 	constructor(props) {
 		super(props);
-
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// User is signed in.
+				console.log(user);
+			} else {
+				// No user is signed in.
+				console.log("not sign in yet");
+			}
+		});
 		this.state = {
 			userType: ""
 		};
@@ -54,6 +63,12 @@ const EventStackNav = StackNavigator(
 					</TouchableOpacity>
 				),
 				headerStyle: { paddingRight: 10, paddingLeft: 10 }
+			})
+		},
+		SignUp: {
+			screen: SignUp,
+			navigationOptions: props => ({
+				title: "Sign Up"
 			})
 		},
 		createEvent: {

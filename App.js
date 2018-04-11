@@ -1,14 +1,19 @@
 // import Login from "./src/components/login/login";
-import Homepage from "./src/components/drawer/starterDrawer";
+import SideMenuSignedIn from "./src/components/drawer/starterDrawer";
+import SideMenuNotSignedIn from "./src/components/drawer/notSignedIn";
 import React, { Component } from "react";
 import {
 	AppRegistry,
+	AsyncStorage,
 	Image,
 	Platform,
 	StyleSheet,
 	Text,
-	View
+	View,
+	ActivityIndicator
 } from "react-native";
+import Login from "./src/components/login/login";
+import firebase from "react-native-firebase";
 
 // import DrawerExample from './Drawer';
 
@@ -16,37 +21,34 @@ export default class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			// firebase things?
+			loading: true,
+			user: null
 		};
 	}
 
-	componentDidMount() {
-		// firebase things?
-		// GET USER
-		//   firebase.database().ref('users/201601234')
-		//     .once()
-		//       .then(function(snapshot){
-		//           console.log(snapshot.val()[0])
-		//           }
-		//         ).catch((error)=>{
-		//    console.log("Api call error");
-		//    alert(error.message);
-		// });
-		// id = 201601438
-		// name='abed'
-		// age = '18'
-		// UPDATE USER DATA OR ADD USER WITH DATA
-		// firebase.database().ref('users/' + (id ) ).set({
-		//   name: name,
-		//   age: age,
-		// profile_picture : './helloworld/j.png'
-		// });
-		// REMOVE USER
-		// firebase.database().ref('users/' +id).remove()
+	componentWillMount() {
+		firebase.auth().onAuthStateChanged(user => {
+			console.log(user);
+			this.setState({
+				loading: false,
+				user: user
+			});
+			// AsyncStorage.setItem('_userData', JSON.stringify(user))
+		});
+	}
+
+	getDrawer() {
+		if (this.state.user) {
+			return <SideMenuSignedIn />;
+		}
+		return <SideMenuNotSignedIn />;
 	}
 
 	render() {
-		return <Homepage />;
+		if (this.state.loading) {
+			return <ActivityIndicator size="large" />;
+		}
+		return this.getDrawer();
 	}
 }
 
@@ -85,3 +87,28 @@ const styles = StyleSheet.create({
 		textAlign: "center"
 	}
 });
+
+//componentDidMount() {
+// firebase things?
+// GET USER
+//   firebase.database().ref('users/201601234')
+//     .once()
+//       .then(function(snapshot){
+//           console.log(snapshot.val()[0])
+//           }
+//         ).catch((error)=>{
+//    console.log("Api call error");
+//    alert(error.message);
+// });
+// id = 201601438
+// name='abed'
+// age = '18'
+// UPDATE USER DATA OR ADD USER WITH DATA
+// firebase.database().ref('users/' + (id ) ).set({
+//   name: name,
+//   age: age,
+// profile_picture : './helloworld/j.png'
+// });
+// REMOVE USER
+// firebase.database().ref('users/' +id).remove()
+//}

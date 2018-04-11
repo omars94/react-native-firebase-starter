@@ -24,11 +24,6 @@ export default class LoginForm extends Component {
     });
   }
 
-  trySignUp() {
-    this.props.onTrySignUp({
-      pressed: true
-    });
-  }
 
   render() {
     return (
@@ -59,14 +54,6 @@ export default class LoginForm extends Component {
           placeholderTextColor="rgba(225,225,225,0.7)"
           secureTextEntry
         />
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => {
-            this.trySignUp();
-          }}
-        >
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonContainer}

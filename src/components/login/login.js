@@ -22,11 +22,8 @@ export default class Login extends Component {
 		this.state = {
 			auth: false,
 			user: null,
-			signUpPressed: false
 		};
-
 		this.handleOnTryLogin = this.handleOnTryLogin.bind(this);
-		this.handleOnTrySignUp = this.handleOnTrySignUp.bind(this);
 	}
 
 	handleOnTryLogin(credentials) {
@@ -55,12 +52,6 @@ export default class Login extends Component {
 			});
 	}
 
-	handleOnTrySignUp({ pressed }) {
-		// console.log(pressed)
-		this.setState({
-			signUpPressed: pressed
-		});
-	}
 	render() {
 		return (
 			<KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -72,34 +63,15 @@ export default class Login extends Component {
 					/>
 				</View>
 				<View>
-					{!this.state.auth &&
-						!this.state.signUpPressed && (
 							<LoginForm
-								onTrySignUp={this.handleOnTrySignUp}
 								onTryLogin={this.handleOnTryLogin}
 							/>
-						)}
-					{this.state.signUpPressed && <SignUpForm />}
-					{this.state.auth && (
-						<Text>Welcome {this.state.user.email}</Text>
-					)}
 				</View>
 			</KeyboardAvoidingView>
 		);
 	}
 }
 
-const LoginStack = StackNavigator(
-	{
-		Login: { screen: LoginForm },
-		SignUp: { screen: SignUpForm }
-	},
-	{
-		header: ({ goBack }) => ({
-			left: <Text onPress={() => goBack()}>Back</Text>
-		})
-	}
-);
 
 // define your styles
 const styles = StyleSheet.create({

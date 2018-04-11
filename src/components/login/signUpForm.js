@@ -47,8 +47,10 @@ class SignUpForm extends Component {
 		var reg1 = /.*(@student.bau.edu.lb)$/i;
 		var reg2 = /.*(@bau.edu.lb)$/i;
 
-		if (this.state.emailAddress.match(reg1) || this.state.emailAddress == reg2){
-
+		if (
+			this.state.emailAddress.match(reg1) ||
+			this.state.emailAddress.match(reg2)
+		) {
 			firebase
 				.auth()
 				.createUserAndRetrieveDataWithEmailAndPassword(
@@ -123,9 +125,9 @@ class SignUpForm extends Component {
 					alert("Sign up is complete");
 					this.props.navigation.navigate("Events");
 				});
-			}else{
-				alert('email not recognized');
-			}
+		} else {
+			alert("email not recognized");
+		}
 	}
 	render() {
 		return (
@@ -235,35 +237,39 @@ class SignUpForm extends Component {
 						/>
 					</View>
 				</View>
-				<View
-					style={{
-						width: "70%",
-						borderColor: "#48BBEC",
-						backgroundColor: "rgba(0,0,0,0.1)",
-						borderWidth: 1,
-						borderRadius: 10,
-						marginLeft: 90
-					}}
-				>
-					<TextInput
-						underlineColorAndroid={"transparent"}
-						placeholder="Confirm Password"
-						secureTextEntry
-						onChangeText={retypepwd => {
-							this.setState({ retypepwd: retypepwd });
-						}}
-					/>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Confirm:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<TextInput
+							underlineColorAndroid={"transparent"}
+							placeholder="Confirm Password"
+							secureTextEntry
+							onChangeText={retypepwd => {
+								this.setState({ retypepwd: retypepwd });
+							}}
+						/>
+					</View>
 				</View>
-				<Picker
-					selectedValue={this.state.gender}
-					onValueChange={(itemValue, itemIndex) =>
-						this.setState({ gender: itemValue })
-					}
-				>
-					<Picker.Item label="Male" value="m" />
-					<Picker.Item label="Female" value="f" />
-					<Picker.Item label="Others" value="o" />
-				</Picker>
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Gender: </Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<Picker
+							selectedValue={this.state.gender}
+							onValueChange={(itemValue, itemIndex) =>
+								this.setState({ gender: itemValue })
+							}
+						>
+							<Picker.Item label="Select" />
+							<Picker.Item label="Male" value="m" />
+							<Picker.Item label="Female" value="f" />
+							<Picker.Item label="Others" value="o" />
+						</Picker>
+					</View>
+				</View>
 				<View style={styles.textAndTextInputContainer}>
 					<View style={styles.textContainer}>
 						<Text>Major:</Text>
@@ -278,46 +284,63 @@ class SignUpForm extends Component {
 						/>
 					</View>
 				</View>
-
-				<DatePicker
+				<View style={styles.textAndTextInputContainer}>
+					<View style={styles.textContainer}>
+						<Text>Birth Date:</Text>
+					</View>
+					<View style={styles.textInputContainer}>
+						<DatePicker
+							style={{
+								width: 200
+							}}
+							date={this.state.date}
+							mode="date"
+							placeholder="select date"
+							format="YYYY-MM-DD"
+							minDate="1950-01-01"
+							maxDate={this.state.date}
+							confirmBtnText="Confirm"
+							cancelBtnText="Cancel"
+							customStyles={{
+								dateIcon: {
+									position: "absolute",
+									left: 0,
+									top: 4,
+									marginLeft: 0
+								},
+								dateInput: {
+									marginLeft: 36
+								}
+								// ... You can check the source to find the other keys.
+							}}
+							onDateChange={birthDate => {
+								this.setState({
+									birthDate: birthDate,
+									date: birthDate
+								});
+							}}
+						/>
+					</View>
+				</View>
+				<View
 					style={{
-						width: 200
+						flex: 1,
+						alignItems: "center"
 					}}
-					date={this.state.date}
-					mode="date"
-					placeholder="select date"
-					format="YYYY-MM-DD"
-					minDate="1950-01-01"
-					maxDate={this.state.date}
-					confirmBtnText="Confirm"
-					cancelBtnText="Cancel"
-					customStyles={{
-						dateIcon: {
-							position: "absolute",
-							left: 0,
-							top: 4,
-							marginLeft: 0
-						},
-						dateInput: {
-							marginLeft: 36
-						}
-						// ... You can check the source to find the other keys.
-					}}
-					onDateChange={birthDate => {
-						this.setState({ birthDate: birthDate });
-					}}
-				/>
-
-				<TouchableOpacity style={styles.buttonContainer} onPress={signUp}>
-					<Text
-						style={{
-							color: "#f0932b",
-							textAlign: "center"
-						}}
-					>
-						Sign Up
-					</Text>
-				</TouchableOpacity>
+				>
+					<TouchableOpacity style={styles.buttonContainer} onPress={signUp}>
+						<Text
+							style={{
+								color: "#f0932b",
+								textAlign: "center",
+								fontSize: 24,
+								fontWeight: "bold"
+							}}
+						>
+							Sign Up
+						</Text>
+					</TouchableOpacity>
+				</View>
 			</ScrollView>
 		);
 	}
@@ -328,9 +351,13 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20
 	},
 	buttonContainer: {
-		backgroundColor: "#CF000F",
-		width: "50%",
-		alignItems: "center"
+		alignItems: "center",
+		backgroundColor: "#abcdef",
+		height: 40,
+		width: 200,
+		margin: 10,
+		borderWidth: 1.5,
+		borderColor: "black"
 	},
 	textAndTextInputContainer: {
 		flex: 1,
