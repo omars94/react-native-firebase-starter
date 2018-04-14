@@ -1,27 +1,20 @@
+import LoginForm from "./loginForm";
+import {Container, Content} from "native-base";
 import React, { Component } from "react";
 import {
+	Image,
 	KeyboardAvoidingView,
 	StyleSheet,
-	View,
-	Image,
-	TextInput,
-	TouchableOpacity,
-	Text,
-	Button
 } from "react-native";
-import { StackNavigator, SafeAreaView } from "react-navigation";
-
 // import { Icon } from "react-native-elements";
 import firebase from "react-native-firebase";
-import LoginForm from "./loginForm";
-import SignUpForm from "./signUpForm";
 
 export default class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			auth: false,
-			user: null,
+			user: null
 		};
 		this.handleOnTryLogin = this.handleOnTryLogin.bind(this);
 	}
@@ -54,24 +47,14 @@ export default class Login extends Component {
 
 	render() {
 		return (
-			<KeyboardAvoidingView behavior="padding" style={styles.container}>
-				<View style={styles.loginContainer}>
-					<Image
-						resizeMode="center"
-						style={styles.logo}
-						source={require("../../images/BAULogoicon.png")}
-					/>
-				</View>
-				<View>
-							<LoginForm
-								onTryLogin={this.handleOnTryLogin}
-							/>
-				</View>
-			</KeyboardAvoidingView>
+			<Container>
+					<Content style={{padding:20}}>
+						<LoginForm onTryLogin={this.handleOnTryLogin} />
+					</Content>
+			</Container>
 		);
 	}
 }
-
 
 // define your styles
 const styles = StyleSheet.create({

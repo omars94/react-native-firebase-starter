@@ -44,7 +44,7 @@ export default class createEvent extends React.Component {
 
 			firebase
 				.database()
-				.ref("events/" + "event99")
+				.ref("events/" + title)
 				.set(model)
 				.then(() => {
 					console.log("done");

@@ -1,12 +1,34 @@
 import React, { Component } from "react";
 import { StyleSheet, Image } from "react-native";
 import firebase from "react-native-firebase";
-import { Container, Button, Content, Header, Text } from "native-base";
+import {
+	Container,
+	Left,
+	Right,
+	Icon,
+	Button,
+	Content,
+	Header,
+	Text,
+	Body
+} from "native-base";
 class settings extends Component {
 	render() {
 		return (
 			<Container>
-				<Content>
+				<Header>
+					<Left>
+						<Button transparent>
+							<Icon name="menu" />
+						</Button>
+					</Left>
+					<Body>
+						<Text>Press me</Text>
+					</Body>
+					<Right />
+				</Header>
+
+				<Content style={{ padding: 20 }}>
 					<Button
 						onPress={() => {
 							firebase.auth().signOut();
@@ -28,7 +50,5 @@ class settings extends Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({});
 
 export default settings;
