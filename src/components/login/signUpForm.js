@@ -1,14 +1,16 @@
 import React, { Component } from "react";
+import { ScrollView, StyleSheet, Image, TouchableOpacity } from "react-native";
 import {
-	Picker,
-	ScrollView,
-	StyleSheet,
-	Image,
 	Text,
-	TextInput,
-	TouchableOpacity,
-	View
-} from "react-native";
+	Input,
+	Form,
+	Item,
+	Label,
+	Content,
+	Container,
+	Picker,
+	Button
+} from "native-base";
 import firebase from "react-native-firebase";
 import DatePicker from "react-native-datepicker";
 import PhotoUpload from "react-native-photo-upload";
@@ -132,131 +134,100 @@ class SignUpForm extends Component {
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<Picker
-					selectedValue={this.state.userType}
-					onValueChange={(itemValue, itemIndex) =>
-						this.setState({ userType: itemValue })
-					}
-				>
-					<Picker.Item label="Student" value="student" />
-					<Picker.Item label="Master Mind" value="mastermind" />
-				</Picker>
-				<PhotoUpload
-					onPhotoSelect={avatar => {
-						if (avatar) {
-							console.log("Image base64 string: ", avatar);
-						}
-					}}
-				>
-					<Image
-						style={{
-							paddingVertical: 30,
-							marginVertical: 10,
-							width: 150,
-							height: 150,
-							borderRadius: 75
-						}}
-						resizeMode="center"
-						source={{
-							uri:
-								"https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg"
-						}}
-					/>
-				</PhotoUpload>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
-						<Text>Full Name:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							underlineColorAndroid={"transparent"}
-							placeholder="Omar Samman"
-							onChangeText={fullname => {
-								this.setState({ fullName: fullname });
+				<Content>
+					<Form>
+						<Picker
+							mode="dropdown"
+							selectedValue={this.state.userType}
+							onValueChange={(itemValue, itemIndex) =>
+								this.setState({ userType: itemValue })
+							}
+						>
+							<Picker.Item label="Student" value="student" />
+							<Picker.Item label="Master Mind" value="mastermind" />
+						</Picker>
+						<PhotoUpload
+							onPhotoSelect={avatar => {
+								if (avatar) {
+									console.log("Image base64 string: ", avatar);
+								}
 							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
-						<Text>Univerity ID:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							underlineColorAndroid={"transparent"}
-							placeholder="201801234"
-							keyboardType="numeric"
-							onChangeText={universityID => {
-								this.setState({ universityID: universityID });
-							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
-						<Text>Phone #:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							underlineColorAndroid={"transparent"}
-							placeholder="70123456"
-							keyboardType="numeric"
-							onChangeText={phoneN => {
-								this.setState({ phoneN: phoneN });
-							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
-						<Text>Email Address:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							underlineColorAndroid={"transparent"}
-							placeholder="john@smith.com"
-							keyboardType="email-address"
-							onChangeText={emailAddress => {
-								this.setState({ emailAddress: emailAddress });
-							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
-						<Text>Password:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							underlineColorAndroid={"transparent"}
-							placeholder="********"
-							secureTextEntry
-							onChangeText={pwd => {
-								this.setState({ pwd: pwd });
-							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
-						<Text>Confirm:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							underlineColorAndroid={"transparent"}
-							placeholder="Confirm Password"
-							secureTextEntry
-							onChangeText={retypepwd => {
-								this.setState({ retypepwd: retypepwd });
-							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
+						>
+							<Image
+								style={{
+									paddingVertical: 30,
+									marginVertical: 10,
+									width: 150,
+									height: 150,
+									borderRadius: 75
+								}}
+								resizeMode="center"
+								source={{
+									uri:
+										"https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg"
+								}}
+							/>
+						</PhotoUpload>
+						<Item floatingLabel>
+							<Label> Full Name </Label>
+							<Input
+								underlineColorAndroid={"transparent"}
+								onChangeText={fullname => {
+									this.setState({ fullName: fullname });
+								}}
+							/>
+						</Item>
+						<Item floatingLabel>
+							<Label>University ID:</Label>
+							<Input
+								underlineColorAndroid={"transparent"}
+								keyboardType="numeric"
+								onChangeText={universityID => {
+									this.setState({ universityID: universityID });
+								}}
+							/>
+						</Item>
+						<Item floatingLabel>
+							<Label>Phone #:</Label>
+							<Input
+								underlineColorAndroid={"transparent"}
+								keyboardType="numeric"
+								onChangeText={phoneN => {
+									this.setState({ phoneN: phoneN });
+								}}
+							/>
+						</Item>
+						<Item floatingLabel>
+							<Label>Email Address:</Label>
+							<Input
+								underlineColorAndroid={"transparent"}
+								keyboardType="email-address"
+								onChangeText={emailAddress => {
+									this.setState({ emailAddress: emailAddress });
+								}}
+							/>
+						</Item>
+						<Item floatingLabel>
+							<Label>Password:</Label>
+							<Input
+								underlineColorAndroid={"transparent"}
+								secureTextEntry
+								onChangeText={pwd => {
+									this.setState({ pwd: pwd });
+								}}
+							/>
+						</Item>
+						<Item floatingLabel>
+							<Label>Confirm:</Label>
+							<Input
+								underlineColorAndroid={"transparent"}
+								secureTextEntry
+								onChangeText={retypepwd => {
+									this.setState({ retypepwd: retypepwd });
+								}}
+							/>
+						</Item>
 						<Text>Gender: </Text>
-					</View>
-					<View style={styles.textInputContainer}>
 						<Picker
 							selectedValue={this.state.gender}
 							onValueChange={(itemValue, itemIndex) =>
@@ -268,27 +239,16 @@ class SignUpForm extends Component {
 							<Picker.Item label="Female" value="f" />
 							<Picker.Item label="Others" value="o" />
 						</Picker>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
-						<Text>Major:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
-						<TextInput
-							underlineColorAndroid={"transparent"}
-							placeholder="Computer Science"
-							onChangeText={major => {
-								this.setState({ major: major });
-							}}
-						/>
-					</View>
-				</View>
-				<View style={styles.textAndTextInputContainer}>
-					<View style={styles.textContainer}>
+						<Item floatingLabel>
+							<Label>Major:</Label>
+							<Input
+								underlineColorAndroid={"transparent"}
+								onChangeText={major => {
+									this.setState({ major: major });
+								}}
+							/>
+						</Item>
 						<Text>Birth Date:</Text>
-					</View>
-					<View style={styles.textInputContainer}>
 						<DatePicker
 							style={{
 								width: 200
@@ -320,27 +280,11 @@ class SignUpForm extends Component {
 								});
 							}}
 						/>
-					</View>
-				</View>
-				<View
-					style={{
-						flex: 1,
-						alignItems: "center"
-					}}
-				>
-					<TouchableOpacity style={styles.buttonContainer} onPress={signUp}>
-						<Text
-							style={{
-								color: "#f0932b",
-								textAlign: "center",
-								fontSize: 24,
-								fontWeight: "bold"
-							}}
-						>
-							Sign Up
-						</Text>
-					</TouchableOpacity>
-				</View>
+						<Button style={{marginVertical:10}} block onPress={signUp}>
+							<Text>Sign Up</Text>
+						</Button>
+					</Form>
+				</Content>
 			</ScrollView>
 		);
 	}
