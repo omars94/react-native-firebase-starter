@@ -22,12 +22,17 @@
   },
   "dependencies": {
     "fbjs": "^0.8.16",
+    "native-base": "^2.4.1",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-native": "^0.53.0",
     "react-native-datepicker": "^1.6.0",
     "react-native-firebase": "^3.2.7",
+    "react-native-floating-action": "^1.9.0",
+    "react-native-linear-gradient": "^2.4.0",
+    "react-native-photo-upload": "^1.2.0",
     "react-native-simple-login": "^1.1.0",
+    "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.5.7"
   }
 }

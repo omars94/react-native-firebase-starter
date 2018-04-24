@@ -1,28 +1,22 @@
+import LoginForm from "./loginForm";
+import {Container, Content} from "native-base";
 import React, { Component } from "react";
 import {
+	Image,
 	KeyboardAvoidingView,
 	StyleSheet,
-	View,
-	Image,
-	TextInput,
-	TouchableOpacity,
-	Text
 } from "react-native";
+// import { Icon } from "react-native-elements";
 import firebase from "react-native-firebase";
-import LoginForm from "./LoginForm";
-import SignUpForm from "./SignUpForm";
 
 export default class Login extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			auth: false,
-			user: null,
-			signUpPressed: false
+			user: null
 		};
-
 		this.handleOnTryLogin = this.handleOnTryLogin.bind(this);
-		this.handleOnTrySignUp = this.handleOnTrySignUp.bind(this);
 	}
 
 	handleOnTryLogin(credentials) {
@@ -51,37 +45,13 @@ export default class Login extends Component {
 			});
 	}
 
-	handleOnTrySignUp({ pressed }) {
-		// console.log(pressed)
-		this.setState({
-			signUpPressed: pressed
-		});
-	}
-
 	render() {
 		return (
-			<KeyboardAvoidingView behavior="padding" style={styles.container}>
-				<View style={styles.loginContainer}>
-					<Image
-						resizeMode="contain"
-						style={styles.logo}
-						source={require("../../images/BAULogoicon.png")}
-					/>
-				</View>
-				<View>
-					{!this.state.auth &&
-						!this.state.signUpPressed && (
-							<LoginForm
-								onTrySignUp={this.handleOnTrySignUp}
-								onTryLogin={this.handleOnTryLogin}
-							/>
-						)}
-					{this.state.signUpPressed && <SignUpForm />}
-					{this.state.auth && (
-						<Text>Welcome {this.state.user.email}</Text>
-					)}
-				</View>
-			</KeyboardAvoidingView>
+			<Container>
+					<Content style={{padding:20}}>
+						<LoginForm onTryLogin={this.handleOnTryLogin} />
+					</Content>
+			</Container>
 		);
 	}
 }
