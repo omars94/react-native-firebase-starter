@@ -227,7 +227,7 @@ class SignUpForm extends Component {
 								}}
 							/>
 						</Item>
-						<Text>Gender: </Text>
+						<Label>Gender: </Label>
 						<Picker
 							selectedValue={this.state.gender}
 							onValueChange={(itemValue, itemIndex) =>
@@ -235,9 +235,9 @@ class SignUpForm extends Component {
 							}
 						>
 							<Picker.Item label="Select" />
-							<Picker.Item label="Male" value="m" />
-							<Picker.Item label="Female" value="f" />
-							<Picker.Item label="Others" value="o" />
+							<Picker.Item label="Male" value="Male" />
+							<Picker.Item label="Female" value="Female" />
+							<Picker.Item label="Other" value="Other" />
 						</Picker>
 						<Item floatingLabel>
 							<Label>Major:</Label>
@@ -280,7 +280,7 @@ class SignUpForm extends Component {
 								});
 							}}
 						/>
-						<Button style={{marginVertical:10}} block onPress={signUp}>
+						<Button style={{ marginVertical: 10 }} block onPress={signUp}>
 							<Text>Sign Up</Text>
 						</Button>
 					</Form>
