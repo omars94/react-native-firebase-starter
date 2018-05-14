@@ -3,15 +3,11 @@ package com.invertase.rnfirebasestarter;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import io.invertase.firebase.RNFirebasePackage;
 import com.rnfs.RNFSPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-import io.invertase.firebase.RNFirebasePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -46,9 +42,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-            new VectorIconsPackage(),
-            new LinearGradientPackage(),
-            new RNFirebasePackage(),
             new RNFSPackage(),
             new ImageResizerPackage(),
             new ImagePickerPackage(),
@@ -69,7 +62,7 @@ public class MainApplication extends Application implements ReactApplication {
         new RNFirebaseCrashlyticsPackage()
       );
     }
-    
+
     @Override
     protected String getJSMainModuleName() {
       return "index";

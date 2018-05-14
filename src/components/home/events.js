@@ -11,7 +11,8 @@ class events extends Component {
 			events: null,
 			// should not have auth and userType here
 			auth: true,
-			userType: "mastermind"
+			userType: "mastermind",
+			users: null
 		};
 	}
 	componentWillMount() {

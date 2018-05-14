@@ -1,131 +1,167 @@
+import {
+	Body,
+	Button,
+	Card,
+	CardItem,
+	Content,
+	Icon,
+	Left,
+	Right,
+	Text
+} from "native-base";
 import React, { Component } from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { Image, View, ImageBackground, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
 const Event = props => {
 	return (
-		<View style={styles.mainContainer}>
-			<ImageBackground
-				resizeMode="stretch"
-				style={{ width: "100%", height: 200, opacity: 1 }}
-				source={{ uri: props.event.image }}
-			>
-				<LinearGradient
-					colors={["rgba(41, 128, 185,0.7)", "rgba(255,255,255,0)"]}
-					style={styles.linearGradient}
-					locations={[0, 1]}
-				>
-					<Text style={styles.title}>{props.event.title}</Text>
-					<Text style={styles.descText}>{props.event.eventDate}</Text>
-					<Text style={styles.descText}>{props.event.location}</Text>
-				</LinearGradient>
-			</ImageBackground>
-		</View>
+		<Content>
+			<Card>
+				<CardItem>
+					<Left>
+						<Icon name="game-controller-b" />
+						<Body>
+							<Text>{props.event.title}</Text>
+							<Text note>Shafik</Text>
+						</Body>
+					</Left>
+				</CardItem>
+				<CardItem cardBody>
+					<Image
+						source={{ uri: props.event.image }}
+						style={{ height: 200, width: null, flex: 1 }}
+					/>
+				</CardItem>
+				<CardItem>
+					<Left>
+						<Button transparent>
+							<Icon active name="thumbs-up" />
+							<Text>12 Likes</Text>
+						</Button>
+					</Left>
+					<Body>
+						<Button transparent>
+							<Icon active name="chatbubbles" />
+							<Text>4 Comments</Text>
+						</Button>
+					</Body>
+					<Right>
+						<Text>11h ago</Text>
+					</Right>
+				</CardItem>
+			</Card>
+		</Content>
 	);
 };
 
 const Job = props => {
 	return (
-		<View style={styles.mainContainer}>
-			<ImageBackground
-				style={{ width: "100%", height: 200, opacity: 0.9 }}
-				source={{ uri: props.event.image }}
-				resizeMode="stretch"
-			>
-				<LinearGradient
-					colors={["rgba(41, 128, 185,0.7)", "rgba(255,255,255,0)"]}
-					style={styles.linearGradient}
-					locations={[0, 1]}
-				>
-					<View style={styles.titleContainer}>
-						<Text style={styles.title}>{props.event.title}</Text>
-					</View>
-					<View style={{flex:0.2, flexDirection:"row", justifyContent: 'space-between', alignItems: 'center'}}>
-						<Text style={styles.descText}>{props.event.jobTitle}</Text>
-						<Text style={styles.descText}>{props.event.email}</Text>
-					</View>
-				</LinearGradient>
-			</ImageBackground>
-		</View>
+		<Content>
+			<Card>
+				<CardItem>
+					<Left>
+						<Icon name="briefcase" />
+						<Body>
+							<Text>{props.event.title}</Text>
+							<Text note>Omar Samman</Text>
+						</Body>
+					</Left>
+				</CardItem>
+				<CardItem cardBody>
+					<Image
+						source={{ uri: props.event.image }}
+						style={{ height: 200, width: null, flex: 1 }}
+					/>
+				</CardItem>
+				<CardItem>
+					<Left>
+						<Button transparent>
+							<Icon active name="thumbs-up" />
+							<Text>12 Likes</Text>
+						</Button>
+					</Left>
+					<Body>
+						<Button transparent>
+							<Icon active name="chatbubbles" />
+							<Text>4 Comments</Text>
+						</Button>
+					</Body>
+					<Right>
+						<Text>11h ago</Text>
+					</Right>
+				</CardItem>
+			</Card>
+		</Content>
 	);
 };
 
 const Post = props => {
 	return (
-		<View style={styles.mainContainer}>
-			{console.log(props.event.image)}
-			{props.event.image && (
-				<ImageBackground
-					source={{ uri: props.event.image }}
-					resizeMode="contain"
-					style={{
-						width: "100%",
-						height: 200,
-						opacity: 1
-					}}
-				>
-					<LinearGradient
-						colors={[
-							"rgba(41, 128, 185,0.7)",
-							"rgba(255,255,255,0)"
-						]}
-						style={styles.linearGradient}
-					>
-						<Text style={styles.title}>{props.event.title}</Text>
-						<Text style={styles.descText}>
-							{props.event.description}
-						</Text>
-					</LinearGradient>
-				</ImageBackground>
-			)}
-
-			{ !props.event.image && (
-				<View style={{backgroundColor:"blue"}}>
-					<Text style={styles.title}>{props.event.title}</Text>
-					<Text style={styles.descText}>
-						{props.event.description}
-					</Text>
-			</View>
-			)}
-		</View>
-	)
-}
+		<Content>
+			<Card>
+				<CardItem>
+					<Left>
+						<Icon name="text" />
+						<Body>
+							<Text>{props.event.title}</Text>
+							<Text note>Omar Samman</Text>
+						</Body>
+					</Left>
+				</CardItem>
+				<CardItem cardBody>
+					<Image
+						source={{ uri: props.event.image }}
+						resizeMode="contain"
+						style={{ height: 200, width: null, flex: 1 }}
+					/>
+				</CardItem>
+				<CardItem>
+					<Left>
+						<Button transparent>
+							<Icon active name="thumbs-up" />
+							<Text>12 Likes</Text>
+						</Button>
+					</Left>
+					<Body>
+						<Button transparent>
+							<Icon active name="chatbubbles" />
+							<Text>4 Comments</Text>
+						</Button>
+					</Body>
+					<Right>
+						<Text>11h ago</Text>
+					</Right>
+				</CardItem>
+			</Card>
+		</Content>
+	);
+};
 
 const Announcement = props => {
 	return (
-		<View style={styles.mainContainer}>
+		<Content style={styles.mainContainer}>
 			<LinearGradient
-				colors={[
-					"rgba(41, 128, 185,0.7)",
-					"rgba(255,255,255,0)"
-				]}
+				colors={["rgba(41, 128, 185,0.7)", "rgba(255,255,255,0)"]}
 				style={styles.linearGradient}
 			>
 				<Text style={styles.title}>{props.event.title}</Text>
-				<Text style={styles.descText}>
-					{props.event.description}
-				</Text>
+				<Text style={styles.descText}>{props.event.description}</Text>
 			</LinearGradient>
-		</View>
+		</Content>
 	);
 };
 
 const Alumni = props => {
 	return (
-		<View style={styles.mainContainer}>
-				<LinearGradient
-					colors={[
-						"rgba(41, 128, 185,0.7)",
-						"rgba(255,255,255,0)"
-					]}
-					style={styles.linearGradient}
-				>
-					<Text style={styles.title}>{props.event.title}</Text>
-					<Text style={styles.descText}>
-						{props.event.description}
-					</Text>
-				</LinearGradient>
-		</View>
+		<Content style={styles.mainContainer}>
+			<LinearGradient
+				colors={["rgba(41, 128, 185,0.7)", "rgba(255,255,255,0)"]}
+				style={styles.linearGradient}
+			>
+				<Text style={styles.title}>{props.event.title}</Text>
+				<Text style={styles.descText}>{props.event.description}</Text>
+			</LinearGradient>
+		</Content>
 	);
 };
 
@@ -135,12 +171,12 @@ class ListingLayout extends Component {
 
 		this.state = {
 			eventType: this.props.event.eventType
+
 		};
 	}
 	render() {
 		return (
-			<View>
-
+			<Content>
 				{this.props.event.eventType == "event" && (
 					<Event event={this.props.event} />
 				)}
@@ -160,32 +196,30 @@ class ListingLayout extends Component {
 				{this.props.event.eventType == "alumni" && (
 					<Alumni event={this.props.event} />
 				)}
-			</View>
+			</Content>
 		);
 	}
 }
-
 
 const styles = StyleSheet.create({
 	mainContainer: {
 		paddingHorizontal: 10,
 		paddingBottom: 5,
-		flex:1
+		flex: 1
 	},
 	descText: {
 		fontSize: 15,
 		color: "#fff",
-		backgroundColor:'rgba(185,99,41,0.8)',
+		backgroundColor: "rgba(185,99,41,0.8)",
 		marginLeft: 10,
-		textAlign:"center"
-
+		textAlign: "center"
 	},
 	title: {
 		color: "#fff",
 		fontWeight: "bold",
 		fontSize: 25,
 		marginLeft: 13,
-		textAlign:"center"
+		textAlign: "center"
 	},
 	postContainer: {
 		backgroundColor: "#575fcf"
