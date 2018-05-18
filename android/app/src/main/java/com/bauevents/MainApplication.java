@@ -1,4 +1,4 @@
-package com.invertase.rnfirebasestarter;
+package com.bauevents;
 
 import android.app.Application;
 
