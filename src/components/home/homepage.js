@@ -5,6 +5,8 @@ import createAnnouncement from "../createNavigator/createAnnouncement";
 import createJob from "../createNavigator/createJob";
 import SignUp from "../login/signUpForm";
 import Events from "./events";
+import Chat from "../chat/chatUI";
+
 import React, { Component } from "react";
 import {
 	Button,
@@ -100,6 +102,12 @@ const EventStackNav = StackNavigator(
 			navigationOptions: props => ({
 				title: "Create Post"
 			})
+		},
+		Chat: {
+			screen: Chat,
+			navigationOptions: props => ({
+				title: "Chat"
+			})
 		}
 	},
 	{
@@ -110,12 +118,5 @@ const EventStackNav = StackNavigator(
 	}
 );
 
-const styles = StyleSheet.create({
-	linearGradient: {
-		paddingLeft: 15,
-		paddingRight: 15,
-		borderRadius: 5
-	}
-});
 
 export default EventStackNav;

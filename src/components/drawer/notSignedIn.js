@@ -3,6 +3,7 @@ import Homepage from "../home/homepage";
 import Login from "../login/login";
 import SignUpForm from "../login/signUpForm";
 import Settings from "../settings/settings";
+import ChatUI from "../chat/chatUI";
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import firebase from 'react-native-firebase';
@@ -47,6 +48,13 @@ const sideMenuNotSignedIn = DrawerNavigator(
 			navigationOptions: {
 				drawerLabel: "About",
 				drawerIcon: ({tintColor}) => <Icon name="question" size={24} />
+			}
+		},
+		Chat: {
+			screen: ChatUI,
+			navigationOptions: {
+				title: "Chat",
+				drawerLabel: "Chat"
 			}
 		}
 	},

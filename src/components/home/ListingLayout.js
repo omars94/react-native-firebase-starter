@@ -15,16 +15,13 @@ import LinearGradient from "react-native-linear-gradient";
 
 const Event = props => {
 	return (
-		<Content>
+		<Content padder>
 			<Card>
-				<CardItem>
-					<Left>
-						<Icon name="game-controller-b" />
-						<Body>
-							<Text>{props.event.title}</Text>
-							<Text note>Shafik</Text>
-						</Body>
-					</Left>
+				<CardItem header bordered>
+					<Icon name="game-controller-b" />
+					<Text>{props.event.title}</Text>
+					<Left />
+					<Text note>Shafik</Text>
 				</CardItem>
 				<CardItem cardBody>
 					<Image
@@ -40,9 +37,14 @@ const Event = props => {
 						</Button>
 					</Left>
 					<Body>
-						<Button transparent>
+						<Button
+							transparent
+							onPress={() => {
+								props.navigation.navigate("Chat");
+							}}
+						>
 							<Icon active name="chatbubbles" />
-							<Text>4 Comments</Text>
+							<Text>Connect</Text>
 						</Button>
 					</Body>
 					<Right>
@@ -56,7 +58,7 @@ const Event = props => {
 
 const Job = props => {
 	return (
-		<Content>
+		<Content padder>
 			<Card>
 				<CardItem>
 					<Left>
@@ -81,9 +83,11 @@ const Job = props => {
 						</Button>
 					</Left>
 					<Body>
-						<Button transparent>
+						<Button transparent onPress={() => {
+							props.navigation.navigate("Chat");
+						}}>
 							<Icon active name="chatbubbles" />
-							<Text>4 Comments</Text>
+							<Text>Connect</Text>
 						</Button>
 					</Body>
 					<Right>
@@ -97,7 +101,7 @@ const Job = props => {
 
 const Post = props => {
 	return (
-		<Content>
+		<Content padder>
 			<Card>
 				<CardItem>
 					<Left>
@@ -123,9 +127,11 @@ const Post = props => {
 						</Button>
 					</Left>
 					<Body>
-						<Button transparent>
+						<Button transparent onPress={() => {
+							props.navigation.navigate("Chat");
+						}}>
 							<Icon active name="chatbubbles" />
-							<Text>4 Comments</Text>
+							<Text>Connect</Text>
 						</Button>
 					</Body>
 					<Right>
@@ -139,28 +145,56 @@ const Post = props => {
 
 const Announcement = props => {
 	return (
-		<Content style={styles.mainContainer}>
-			<LinearGradient
-				colors={["rgba(41, 128, 185,0.7)", "rgba(255,255,255,0)"]}
-				style={styles.linearGradient}
-			>
-				<Text style={styles.title}>{props.event.title}</Text>
-				<Text style={styles.descText}>{props.event.description}</Text>
-			</LinearGradient>
+		<Content padder>
+			<Card>
+				<CardItem header>
+					<Text>{props.event.title}</Text>
+				</CardItem>
+				<Card>
+					<Body>
+						<Text>{props.event.description}</Text>
+					</Body>
+				</Card>
+				<CardItem footer>
+					<Button onPress={() => {
+						props.navigation.navigate("Chat");
+					}}>
+						<Icon active name="chatbubbles" />
+						<Text>Connect</Text>
+					</Button>
+				</CardItem>
+			</Card>
 		</Content>
 	);
 };
 
 const Alumni = props => {
 	return (
-		<Content style={styles.mainContainer}>
-			<LinearGradient
-				colors={["rgba(41, 128, 185,0.7)", "rgba(255,255,255,0)"]}
-				style={styles.linearGradient}
-			>
-				<Text style={styles.title}>{props.event.title}</Text>
-				<Text style={styles.descText}>{props.event.description}</Text>
-			</LinearGradient>
+		<Content padder>
+			<Card>
+				<CardItem header bordered>
+					<Text>{props.event.title}</Text>
+				</CardItem>
+				<CardItem cardBody>
+					<Image
+						source={{ uri: props.event.image }}
+						resizeMode="contain"
+						style={{ height: 200, width: null, flex: 1 }}
+					/>
+				</CardItem>
+				<CardItem bordered>
+					<Body>
+						<Text>{props.event.description}</Text>
+					</Body>
+				</CardItem>
+				<CardItem footer>
+					<Button onPress={() => {
+						props.navigation.navigate("Chat");
+					}} >
+						<Text> Connect </Text>
+					</Button>
+				</CardItem>
+			</Card>
 		</Content>
 	);
 };
@@ -171,30 +205,25 @@ class ListingLayout extends Component {
 
 		this.state = {
 			eventType: this.props.event.eventType
-
 		};
 	}
 	render() {
 		return (
 			<Content>
 				{this.props.event.eventType == "event" && (
-					<Event event={this.props.event} />
+					<Event event={this.props.event} navigation={this.props.navigation} />
 				)}
-
 				{this.props.event.eventType == "announcement" && (
-					<Announcement event={this.props.event} />
+					<Announcement event={this.props.event} navigation={this.props.navigation} />
 				)}
-
 				{this.props.event.eventType == "jobVacancy" && (
-					<Job event={this.props.event} />
+					<Job event={this.props.event} navigation={this.props.navigation} />
 				)}
-
 				{this.props.event.eventType == "post" && (
-					<Post event={this.props.event} />
+					<Post event={this.props.event} navigation={this.props.navigation} />
 				)}
-
 				{this.props.event.eventType == "alumni" && (
-					<Alumni event={this.props.event} />
+					<Alumni event={this.props.event} navigation={this.props.navigation} />
 				)}
 			</Content>
 		);

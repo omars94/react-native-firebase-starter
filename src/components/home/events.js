@@ -75,7 +75,7 @@ class events extends Component {
 		var eventsArray = Object.keys(this.state.events);
 		var events = this.state.events;
 		return eventsArray.map(item => {
-			return <ListingLayout key={item} event={events[item]} />;
+			return <ListingLayout key={item} event={events[item]} navigation={this.props.navigation} />;
 		});
 	}
 }
