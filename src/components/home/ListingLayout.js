@@ -12,6 +12,7 @@ import {
 import React, { Component } from "react";
 import { Image, View, ImageBackground, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import firebase from "react-native-firebase";
 
 const Event = props => {
 	return (
@@ -21,7 +22,7 @@ const Event = props => {
 					<Icon name="game-controller-b" />
 					<Text>{props.event.title}</Text>
 					<Left />
-					<Text note>Shafik</Text>
+					<Text note>{props.event.mastermindName}</Text>
 				</CardItem>
 				<CardItem cardBody>
 					<Image
@@ -30,21 +31,15 @@ const Event = props => {
 					/>
 				</CardItem>
 				<CardItem>
-					<Left>
-						<Button transparent>
-							<Icon active name="thumbs-up" />
-							<Text>12 Likes</Text>
-						</Button>
-					</Left>
 					<Body>
 						<Button
-							transparent
+							success
 							onPress={() => {
-								props.navigation.navigate("Chat");
+								navigateToChat(props.event.id, props.event.mastermind);
 							}}
 						>
 							<Icon active name="chatbubbles" />
-							<Text>Connect</Text>
+							<Text>Chat Room</Text>
 						</Button>
 					</Body>
 					<Right>
@@ -65,7 +60,7 @@ const Job = props => {
 						<Icon name="briefcase" />
 						<Body>
 							<Text>{props.event.title}</Text>
-							<Text note>Omar Samman</Text>
+							<Text note>{props.event.mastermindName}</Text>
 						</Body>
 					</Left>
 				</CardItem>
@@ -76,18 +71,15 @@ const Job = props => {
 					/>
 				</CardItem>
 				<CardItem>
-					<Left>
-						<Button transparent>
-							<Icon active name="thumbs-up" />
-							<Text>12 Likes</Text>
-						</Button>
-					</Left>
 					<Body>
-						<Button transparent onPress={() => {
-							props.navigation.navigate("Chat");
-						}}>
+						<Button
+							success
+							onPress={() => {
+								navigateToChat(props.event.id, props.event.mastermind);
+							}}
+						>
 							<Icon active name="chatbubbles" />
-							<Text>Connect</Text>
+							<Text>Chat Room</Text>
 						</Button>
 					</Body>
 					<Right>
@@ -108,7 +100,7 @@ const Post = props => {
 						<Icon name="text" />
 						<Body>
 							<Text>{props.event.title}</Text>
-							<Text note>Omar Samman</Text>
+							<Text note>{props.event.mastermindName}</Text>
 						</Body>
 					</Left>
 				</CardItem>
@@ -120,18 +112,15 @@ const Post = props => {
 					/>
 				</CardItem>
 				<CardItem>
-					<Left>
-						<Button transparent>
-							<Icon active name="thumbs-up" />
-							<Text>12 Likes</Text>
-						</Button>
-					</Left>
 					<Body>
-						<Button transparent onPress={() => {
-							props.navigation.navigate("Chat");
-						}}>
+						<Button
+							success
+							onPress={() => {
+								navigateToChat(props.event.id, props.event.mastermind);
+							}}
+						>
 							<Icon active name="chatbubbles" />
-							<Text>Connect</Text>
+							<Text>Chat Room</Text>
 						</Button>
 					</Body>
 					<Right>
@@ -156,11 +145,14 @@ const Announcement = props => {
 					</Body>
 				</Card>
 				<CardItem footer>
-					<Button onPress={() => {
-						props.navigation.navigate("Chat");
-					}}>
+					<Button
+						success
+						onPress={() => {
+							navigateToChat(props.event.id, props.event.mastermind);
+						}}
+					>
 						<Icon active name="chatbubbles" />
-						<Text>Connect</Text>
+						<Text>Chat Room</Text>
 					</Button>
 				</CardItem>
 			</Card>
@@ -188,10 +180,13 @@ const Alumni = props => {
 					</Body>
 				</CardItem>
 				<CardItem footer>
-					<Button onPress={() => {
-						props.navigation.navigate("Chat");
-					}} >
-						<Text> Connect </Text>
+					<Button
+						success
+						onPress={() => {
+							navigateToChat(props.event.id, props.event.mastermind);
+						}}
+					>
+						<Text> Chat Room </Text>
 					</Button>
 				</CardItem>
 			</Card>
@@ -206,6 +201,19 @@ class ListingLayout extends Component {
 		this.state = {
 			eventType: this.props.event.eventType
 		};
+		navigateToChat = this.navigateToChat.bind(this);
+	}
+	navigateToChat(id, mastermind) {
+		let currentUser = firebase.auth().currentUser;
+
+		if (currentUser != null) {
+			this.props.navigation.navigate("Chat", {
+				eventID: id,
+				mastermind: mastermind
+			});
+		} else {
+			alert("you must login");
+		}
 	}
 	render() {
 		return (
@@ -214,7 +222,10 @@ class ListingLayout extends Component {
 					<Event event={this.props.event} navigation={this.props.navigation} />
 				)}
 				{this.props.event.eventType == "announcement" && (
-					<Announcement event={this.props.event} navigation={this.props.navigation} />
+					<Announcement
+						event={this.props.event}
+						navigation={this.props.navigation}
+					/>
 				)}
 				{this.props.event.eventType == "jobVacancy" && (
 					<Job event={this.props.event} navigation={this.props.navigation} />

@@ -17,12 +17,39 @@ export default class createEvent extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: "", date: "", description: "", image: "", location: "", mastermind: ""
+			title: "",
+			date: "",
+			description: "",
+			image: "",
+			location: "",
+			mastermind: "",
+			mastermindName: ""
 		};
 		doCreateEvent = this.doCreateEvent.bind(this);
 	}
+	componentWillMount() {
+		let currentUser = firebase.auth().currentUser;
 
+		firebase
+			.database()
+			.ref("users/" + currentUser.uid)
+			.once()
+			.then(
+				function(snapshot) {
+					this.setState({
+						mastermindName: snapshot.val().fullName
+					});
+				}.bind(this)
+			)
+			.catch(error => {
+				// console.log("Api call error", error.message);
+				// alert(error.message);
+			});
+	}
 	doCreateEvent() {
+		let currentUser = firebase.auth().currentUser;
+
+		eventID = currentUser.uid + "" + this.state.title;
 		if (
 			this.state.title != "" &&
 			this.state.date != "" &&
@@ -31,24 +58,27 @@ export default class createEvent extends React.Component {
 		) {
 			var model = {
 				dateCreated: Date.now(),
+				eventID: eventID,
 				title: this.state.title,
 				eventDate: this.state.date,
 				image: this.state.photo,
 				description: this.state.description,
 				location: this.state.location,
 				eventType: "event",
-				mastermind: this.state.mastermind
+				mastermind: currentUser.uid,
+				mastermindName: this.state.mastermindName
 			};
 
 			firebase
 				.database()
-				.ref("events/" + model.title)
+				.ref("events/" + eventID)
 				.set(model)
 				.then(() => {
 					console.log("done");
 				});
-
-		} else alert("you must fill all the boxes");
+		} else {
+			alert("you must fill all the boxes");
+		}
 	}
 
 	render() {

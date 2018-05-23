@@ -37,8 +37,6 @@ class SignUpForm extends Component {
 			gender: "",
 			pwd: "",
 			retypepwd: "",
-			firstName: "",
-			lastName: "",
 			fullName: "",
 			auth: "false",
 			user: "0"
@@ -102,8 +100,6 @@ class SignUpForm extends Component {
 							var errorMessage = error.message;
 							console.log(errorMessage);
 						});
-					firstName = this.state.fullName.split(" ")[0];
-					lastName = this.state.fullName.split(" ")[1];
 					var model = {
 						dateCreated:
 							Date().toLocaleString() + " " + new Date().getMilliseconds(),
@@ -114,13 +110,12 @@ class SignUpForm extends Component {
 						major: this.state.major,
 						birthDate: this.state.birthDate,
 						gender: this.state.gender,
-						firstName: firstName,
-						lastName: lastName
+						fullName: this.state.fullName,
 					};
 
 					firebase
 						.database()
-						.ref("users/" + this.state.universityID)
+						.ref("users/" + user.uid)
 						.set(model);
 
 					console.log(model);

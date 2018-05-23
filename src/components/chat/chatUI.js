@@ -27,11 +27,30 @@ export default class ChatUI extends Component {
 		this.state = {
 			messages: null,
 			message: "",
-			isLoading: false
+			isLoading: false,
+			name: ""
 		};
+		timeSince = this.timeSince.bind(this);
 	}
 	componentDidMount() {
 		this.loadMessages();
+	}
+	componentWillMount() {
+		let currentUser = firebase.auth().currentUser;
+
+		firebase
+			.database()
+			.ref("users/" + currentUser.uid)
+			.once()
+			.then(
+				function(snapshot) {
+					this.setState({
+						name: snapshot.val().fullName
+					});
+				}.bind(this)
+			)
+			.catch(error => {});
+		// a.setTimeOut({},1500);
 	}
 	sendMessage() {
 		let currentUser = firebase.auth().currentUser;
@@ -41,104 +60,113 @@ export default class ChatUI extends Component {
 			createdAt: createdAt,
 			user: {
 				id: currentUser.uid,
-				email: currentUser.email
+				email: currentUser.email,
+				name: this.state.name
 			},
-			recipients: "a b_b a"
+			event: this.props.navigation.state.params.eventID
 		};
 		firebase
 			.database()
 			.ref("Messages")
 			.push()
-			.set(chatMessage, error => {
-				alert(error);
-			});
+			.set(chatMessage, error => {});
 	}
 	loadMessages() {
 		let currentUser = firebase.auth().currentUser;
-		let recipients = ["a b_b a", "b a_a b"];
 
 		this.setState({
 			isLoading: true
 		});
 
-		// from: this.state.from,
-		// to: "txbs8LkhL0f71kMWxG4hUxk9pB82"
-		let messages1, messages2;
 		firebase
 			.database()
 			.ref("Messages")
 			.limitToLast(50)
-			.orderByChild("recipients")
-			.equalTo(recipients[0])
+			.orderByChild("event")
+			.equalTo(this.props.navigation.state.params.eventID)
 			.on(
 				"value",
 				snapshot => {
-					messages1 = snapshot.val();
-				},
-				errorObject => {
-					// alert(errorObject.message);
-				}
-			);
-
-		firebase
-			.database()
-			.ref("Messages")
-			.limitToLast(50)
-			.orderByChild("recipients")
-			.equalTo(recipients[1])
-			.on(
-				"value",
-				snapshot => {
-					messages2 = snapshot.val();
-					messages = Object.assign({}, messages1, messages2);
 					this.setState({
-						messages: messages,
+						messages: snapshot.val(),
 						isLoading: false
 					});
-					console.log(this.state.messages);
 				},
-				errorObject => {
-					// alert(errorObject.message);
-				}
+				errorObject => {}
 			);
 	}
+	timeSince(timeStamp) {
+		var now = new Date(),
+			secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+		if (secondsPast < 60) {
+			return parseInt(secondsPast) + "s";
+		}
+		if (secondsPast < 3600) {
+			return parseInt(secondsPast / 60) + "m";
+		}
+		if (secondsPast <= 86400) {
+			return parseInt(secondsPast / 3600) + "h";
+		}
+		if (secondsPast > 86400) {
+			day = timeStamp.getDate();
+			month = timeStamp
+				.toDateString()
+				.match(/ [a-zA-Z]*/)[0]
+				.replace(" ", "");
+			year =
+				timeStamp.getFullYear() == now.getFullYear()
+					? ""
+					: " " + timeStamp.getFullYear();
+			return day + " " + month + year;
+		}
+	}
+
 	renderMessages() {
-		return Object.keys(this.state.messages).map(messageid => {
-			let message = this.state.messages[messageid];
-			let currentUser = firebase.auth().currentUser;
-			let content = (
-				<Card>
-					<CardItem header bordered>
-						<Text>{message.user.id}</Text>
-					</CardItem>
-					<CardItem bordered>
-						<Body>
-							<Text>{message.text}</Text>
-						</Body>
-					</CardItem>
-					<CardItem bordered footer>
-						<Text note>date</Text>
-					</CardItem>
-				</Card>
-			);
-			if (message.user.id != currentUser.uid) {
+		return Object.keys(this.state.messages)
+			.reverse()
+			.map(messageid => {
+				let message = this.state.messages[messageid];
+				let currentUser = firebase.auth().currentUser;
+				let content = (
+					<Card style={{ width: "75%" }}>
+						<CardItem header bordered style={{ width: "75%" }}>
+							<Text>{message.user.name} </Text>
+						</CardItem>
+						<CardItem bordered>
+							<Body>
+								<Text>{message.text}</Text>
+							</Body>
+						</CardItem>
+						<CardItem bordered footer>
+							<Text note>{timeSince(new Date(message.createdAt))} ago</Text>
+							{message.user.id ==
+								this.props.navigation.state.params.mastermind && (
+								<Text note> - Master mind</Text>
+							)}
+						</CardItem>
+					</Card>
+				);
+				if (message.user.id != currentUser.uid) {
+					return (
+						<Row key={messageid}>
+							<Left>{content}</Left>
+						</Row>
+					);
+				}
 				return (
 					<Row key={messageid}>
-						<Left>{content}</Left>
+						<Right>{content}</Right>
 					</Row>
 				);
-			}
-			return (
-				<Row key={messageid}>
-					<Right>{content}</Right>
-				</Row>
-			);
-		});
+			});
 	}
+
 	render() {
 		return (
 			<Container>
-				<Content padder>
+				<Content
+					padder
+				>
 					<Grid>
 						{this.state.messages &&
 							!this.state.isLoading &&
@@ -181,9 +209,3 @@ export default class ChatUI extends Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1
-	}
-});

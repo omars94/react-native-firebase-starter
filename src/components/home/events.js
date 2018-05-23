@@ -11,11 +11,27 @@ class events extends Component {
 			events: null,
 			// should not have auth and userType here
 			auth: true,
-			userType: "mastermind",
+			userType: "",
 			users: null
 		};
 	}
 	componentWillMount() {
+		let currentUser = firebase.auth().currentUser;
+		if (currentUser != null) {
+			firebase
+				.database()
+				.ref("users/" + currentUser.uid)
+				.orderByChild("dateCreated")
+				.once()
+				.then(
+					function(snapshot) {
+						this.setState({
+							userType: snapshot.val().userType
+						});
+					}.bind(this)
+				);
+		}
+
 		firebase
 			.database()
 			.ref("events/")
@@ -35,7 +51,7 @@ class events extends Component {
 			)
 			.catch(error => {
 				console.log("Api call error", error.message);
-				alert(error.message);
+				// alert(error.message);
 			});
 	}
 	render() {
@@ -74,8 +90,17 @@ class events extends Component {
 	renderEvents() {
 		var eventsArray = Object.keys(this.state.events);
 		var events = this.state.events;
+
 		return eventsArray.map(item => {
-			return <ListingLayout key={item} event={events[item]} navigation={this.props.navigation} />;
+			let ev = events[item];
+			ev.id = item;
+			return (
+				<ListingLayout
+					key={item}
+					event={ev}
+					navigation={this.props.navigation}
+				/>
+			);
 		});
 	}
 }
