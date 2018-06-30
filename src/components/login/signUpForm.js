@@ -13,7 +13,12 @@ import {
 } from "native-base";
 import firebase from "react-native-firebase";
 import DatePicker from "react-native-datepicker";
-import PhotoUpload from "react-native-photo-upload";
+//import PhotoUpload from "react-native-photo-upload";
+import RNFetchBlob from "react-native-fetch-blob";
+import CameraRollPicker from "react-native-camera-roll-picker";
+import Gallery from "./Gallery";
+
+import { StackNavigator } from "react-navigation";
 
 class SignUpForm extends Component {
 	constructor(props) {
@@ -35,6 +40,7 @@ class SignUpForm extends Component {
 			major: "",
 			birthDate: date,
 			gender: "",
+			profilePhoto: "",
 			pwd: "",
 			retypepwd: "",
 			fullName: "",
@@ -42,7 +48,9 @@ class SignUpForm extends Component {
 			user: "0"
 		};
 		signUp = this.signUp.bind(this);
+		navigateGallery = this.navigateGallery.bind(this);
 	}
+	navigateGallery() {}
 	signUp() {
 		var reg1 = /.*(@student.bau.edu.lb)$/i;
 		var reg2 = /.*(@bau.edu.lb)$/i;
@@ -104,13 +112,14 @@ class SignUpForm extends Component {
 						dateCreated:
 							Date().toLocaleString() + " " + new Date().getMilliseconds(),
 						userType: this.state.userType,
+						profilePhoto: this.state.profilePhoto,
 						universityID: this.state.universityID,
 						phoneN: this.state.phoneN,
 						emailAddress: this.state.emailAddress,
 						major: this.state.major,
 						birthDate: this.state.birthDate,
 						gender: this.state.gender,
-						fullName: this.state.fullName,
+						fullName: this.state.fullName
 					};
 
 					firebase
@@ -126,9 +135,14 @@ class SignUpForm extends Component {
 			alert("email not recognized");
 		}
 	}
+	getImageURI = imageURI => {
+		this.setState({
+			profilePhoto: imageURI
+		});
+	};
 	render() {
 		return (
-			<ScrollView style={styles.container}>
+			<ScrollView>
 				<Content>
 					<Form>
 						<Picker
@@ -141,28 +155,10 @@ class SignUpForm extends Component {
 							<Picker.Item label="Student" value="student" />
 							<Picker.Item label="Master Mind" value="mastermind" />
 						</Picker>
-						<PhotoUpload
-							onPhotoSelect={avatar => {
-								if (avatar) {
-									console.log("Image base64 string: ", avatar);
-								}
-							}}
-						>
-							<Image
-								style={{
-									paddingVertical: 30,
-									marginVertical: 10,
-									width: 150,
-									height: 150,
-									borderRadius: 75
-								}}
-								resizeMode="center"
-								source={{
-									uri:
-										"https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg"
-								}}
-							/>
-						</PhotoUpload>
+						<Gallery returnImageURI={this.getImageURI} />
+						{/* <Button style={{ margin: 10 }} onPress={() => this.props.navigation.navigate("Gallery")}>
+							<Text>Upload Image</Text>
+						</Button> */}
 						<Item floatingLabel>
 							<Label> Full Name </Label>
 							<Input
@@ -275,7 +271,7 @@ class SignUpForm extends Component {
 								});
 							}}
 						/>
-						<Button style={{ marginVertical: 10 }} block onPress={signUp}>
+						<Button style={{ margin: 10 }} block onPress={signUp}>
 							<Text>Sign Up</Text>
 						</Button>
 					</Form>
@@ -284,38 +280,5 @@ class SignUpForm extends Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		paddingHorizontal: 20
-	},
-	buttonContainer: {
-		alignItems: "center",
-		backgroundColor: "#abcdef",
-		height: 40,
-		width: 200,
-		margin: 10,
-		borderWidth: 1.5,
-		borderColor: "black"
-	},
-	textAndTextInputContainer: {
-		flex: 1,
-		alignItems: "center",
-		flexDirection: "row",
-		paddingHorizontal: 10,
-		paddingVertical: 2.5
-	},
-	textContainer: {
-		width: "25%"
-	},
-	textInputContainer: {
-		width: "75%",
-		borderColor: "#48BBEC",
-		backgroundColor: "rgba(0,0,0,0.1)",
-		borderWidth: 1,
-		paddingBottom: 5,
-		borderRadius: 10
-	}
-});
 
 export default SignUpForm;

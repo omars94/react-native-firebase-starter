@@ -2,8 +2,10 @@ import About from "../about/about";
 import Homepage from "../home/homepage";
 import Login from "../login/login";
 import SignUpForm from "../login/signUpForm";
+import Gallery from "../login/Gallery";
 import Settings from "../settings/settings";
 import ChatUI from "../chat/chatUI";
+
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import firebase from 'react-native-firebase';
@@ -65,4 +67,8 @@ const sideMenuNotSignedIn = DrawerNavigator(
 		}
 	}
 );
+const ImageUpload = StackNavigator({
+	SignUp: { screen: SignUpForm },
+	Gallery: { screen: Gallery }
+});
 export default sideMenuNotSignedIn;
