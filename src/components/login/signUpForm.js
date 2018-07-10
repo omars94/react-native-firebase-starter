@@ -13,11 +13,9 @@ import {
 } from "native-base";
 import firebase from "react-native-firebase";
 import DatePicker from "react-native-datepicker";
-//import PhotoUpload from "react-native-photo-upload";
 import RNFetchBlob from "react-native-fetch-blob";
 import CameraRollPicker from "react-native-camera-roll-picker";
 import Gallery from "./Gallery";
-
 import { StackNavigator } from "react-navigation";
 
 class SignUpForm extends Component {
@@ -48,9 +46,8 @@ class SignUpForm extends Component {
 			user: "0"
 		};
 		signUp = this.signUp.bind(this);
-		navigateGallery = this.navigateGallery.bind(this);
 	}
-	navigateGallery() {}
+
 	signUp() {
 		var reg1 = /.*(@student.bau.edu.lb)$/i;
 		var reg2 = /.*(@bau.edu.lb)$/i;
@@ -135,18 +132,21 @@ class SignUpForm extends Component {
 			alert("email not recognized");
 		}
 	}
+
 	getImageURI = imageURI => {
 		this.setState({
 			profilePhoto: imageURI
 		});
 	};
+
 	render() {
 		return (
 			<ScrollView>
-				<Content>
+				<Content padder>
 					<Form>
 						<Picker
 							mode="dropdown"
+							style={{}}
 							selectedValue={this.state.userType}
 							onValueChange={(itemValue, itemIndex) =>
 								this.setState({ userType: itemValue })

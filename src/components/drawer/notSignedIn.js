@@ -67,8 +67,4 @@ const sideMenuNotSignedIn = DrawerNavigator(
 		}
 	}
 );
-const ImageUpload = StackNavigator({
-	SignUp: { screen: SignUpForm },
-	Gallery: { screen: Gallery }
-});
 export default sideMenuNotSignedIn;

@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import {
-	AppRegistry,
-	StyleSheet,
-	Text,
-	Image,
-	Platform,
-	Button,
-	View
-} from "react-native";
+import { AppRegistry, StyleSheet, Image, Platform } from "react-native";
+import { Container, Content, Text, Button } from "native-base";
 import firebase from "react-native-firebase";
 import RNFetchBlob from "react-native-fetch-blob";
 
@@ -34,11 +27,12 @@ export default class App extends Component {
 		super();
 		this.getImage = this.getImage.bind(this);
 		this.state = {
-			image_uri: "https://avatars0.githubusercontent.com/u/12028011?v=3&s=200"
+			image_uri: "https://avatars0.githubusercontent.com/u/12028011?v=3&s=200",
+			fileType: ""
 		};
 	}
 
-	uploadImage(uri, mime = "application/octet-stream") {
+	uploadImage(uri, mime = this.state.fileType) {
 		return new Promise((resolve, reject) => {
 			const uploadUri =
 				Platform.OS === "ios" ? uri.replace("file://", "") : uri;
@@ -46,7 +40,7 @@ export default class App extends Component {
 
 			const imageRef = firebase
 				.storage()
-				.ref("images")
+				.ref("images/profiles/")
 				.child(Date.now());
 
 			fs.readFile(uploadUri, "base64")
@@ -55,7 +49,11 @@ export default class App extends Component {
 				})
 				.then(blob => {
 					uploadBlob = blob;
-					return imageRef.put(uri, { contentType: mime });
+					var metadata = {
+						contentType: mime
+					};
+
+					return imageRef.put(uri, metadata);
 				})
 				.then(() => {
 					uploadBlob.close();
@@ -73,7 +71,9 @@ export default class App extends Component {
 	getImage() {
 		ImagePicker.showImagePicker(options, response => {
 			console.log("Response = ", response);
-
+			this.setState({
+				fileType: response.type
+			});
 			if (response.didCancel) {
 				// console.log("User cancelled image picker");
 			} else if (response.error) {
@@ -99,51 +99,17 @@ export default class App extends Component {
 			}
 		});
 	}
-	someFn = () => {
-		listInfo = this.state.image_uri;
-		console.log(listInfo);
-	};
 
 	returnImageURI() {
 		imageURI = this.state.image_uri;
-		console.log("Gallery", imageURI);
 		this.props.profilePhotoPath(imageURI);
 	}
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<Image
-					source={{
-						uri:
-							"https://firebasestorage.googleapis.com/v0/b/infinite-mantis-140010.appspot.com/o/images%2F1530350514404?alt=media&token=2807640b-787a-4000-b693-e3c8e526bba2"
-					}}
-				/>
-				<Button
-					onPress={this.getImage}
-					title="Upload Profile Photo"
-					color="#841584"
-				/>
-			</View>
+			<Button success style={{ marginLeft: 20 }} onPress={this.getImage}>
+				<Text> Upload Profile Photo</Text>
+			</Button>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "#F5FCFF"
-	},
-	welcome: {
-		fontSize: 20,
-		textAlign: "center",
-		margin: 10
-	},
-	instructions: {
-		textAlign: "center",
-		color: "#333333",
-		marginBottom: 5
-	}
-});

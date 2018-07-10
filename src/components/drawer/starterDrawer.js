@@ -1,6 +1,7 @@
 import About from "../about/about";
 import Homepage from "../home/homepage";
 import Settings from "../settings/settings";
+import Profile from "../profile/Profile"
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ChatUI from "../chat/chatUI";
@@ -22,7 +23,7 @@ export default (sideMenuSignedIn = DrawerNavigator(
 			}
 		},
 		Profile: {
-			screen: Settings,
+			screen: Profile,
 			navigationOptions: {
 				drawerLabel: "Profile",
 				drawerIcon: ({ tintColor }) => <Icon name="user" size={24} />
