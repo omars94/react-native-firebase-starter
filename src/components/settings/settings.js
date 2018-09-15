@@ -36,15 +36,6 @@ class settings extends Component {
 					>
 						<Text>Logout</Text>
 					</Button>
-					<Text
-						style={{
-							fontSize: 50,
-							color: "red",
-							textAlign: "center"
-						}}
-					>
-						This is the settings page
-					</Text>
 				</Content>
 			</Container>
 		);

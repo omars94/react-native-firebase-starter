@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import Login from "./src/components/login/login";
 import firebase from "react-native-firebase";
+import ChatUI from "./src/components/chat/chatUI";
 
 // import DrawerExample from './Drawer';
 
@@ -49,6 +50,7 @@ export default class App extends Component {
 			return <ActivityIndicator size="large" />;
 		}
 		return this.getDrawer();
+		// return <ChatUI />;
 	}
 }
 
